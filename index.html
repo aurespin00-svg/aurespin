@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>AureSpin</title>
 
 <style>
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     font-family:Arial, sans-serif;
     background:#0b0f1c;
     color:white;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
 }
 
-/* TOP PROMO BAR */
+/* TOP PROMO */
 .top-bar{
     background:linear-gradient(90deg,#1e2a4d,#16213e);
     padding:8px;
     text-align:center;
-    font-size:14px;
+    font-size:13px;
     color:gold;
 }
 
@@ -26,7 +34,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:12px;
+    padding:12px 15px;
     background:#11162a;
 }
 
@@ -34,7 +42,7 @@ body{
     background:#1e2a4d;
     padding:6px 10px;
     border-radius:8px;
-    font-size:14px;
+    font-size:13px;
 }
 
 .auth button{
@@ -42,61 +50,59 @@ body{
     padding:6px 10px;
     border:none;
     border-radius:6px;
-    font-size:13px;
+    font-size:12px;
     cursor:pointer;
 }
 
 .login{background:#1e2a4d;color:white;}
 .register{background:gold;color:black;font-weight:bold;}
 
-/* HERO BANNER */
+/* MAIN SCROLL AREA */
+.main{
+    flex:1;
+    overflow-y:auto;
+    padding-bottom:70px;
+}
+
+/* HERO */
 .hero{
-    margin:15px;
-    border-radius:15px;
-    padding:25px;
+    width:100%;
+    padding:25px 15px;
     background:linear-gradient(135deg,#1c2b55,#0d1b3d);
-    box-shadow:0 0 25px rgba(0,0,255,0.3);
 }
 
 .hero h2{
     color:gold;
-    margin:0;
+    font-size:20px;
 }
 
 .hero p{
-    margin-top:8px;
+    margin-top:6px;
+    font-size:14px;
 }
 
-/* SMALL PROMOS */
+/* PROMO ROW */
 .promos{
     display:flex;
     gap:10px;
-    padding:0 15px;
+    padding:15px;
     overflow-x:auto;
 }
 
 .promo-card{
-    min-width:140px;
+    min-width:150px;
     background:#141a2e;
-    padding:10px;
+    padding:12px;
     border-radius:12px;
-    text-align:center;
     font-size:13px;
-    box-shadow:0 0 10px rgba(0,0,255,0.2);
+    text-align:center;
 }
 
-/* ANNOUNCEMENT */
-.announcement{
-    padding:10px 15px;
-    font-size:14px;
-    color:gold;
-}
-
-/* CATEGORY TABS */
+/* TABS */
 .tabs{
     display:flex;
     gap:10px;
-    padding:0 15px;
+    padding:0 15px 15px;
     overflow-x:auto;
 }
 
@@ -106,7 +112,7 @@ body{
     border-radius:20px;
     background:#1e2a4d;
     color:white;
-    cursor:pointer;
+    font-size:13px;
 }
 
 .tabs .active{
@@ -120,7 +126,7 @@ body{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
-    padding:15px;
+    padding:0 15px 20px;
 }
 
 .game-card{
@@ -128,12 +134,16 @@ body{
     border-radius:15px;
     padding:15px;
     text-align:center;
-    box-shadow:0 0 15px rgba(0,0,255,0.2);
 }
 
 .game-card h4{
     color:gold;
-    margin-bottom:6px;
+    font-size:14px;
+}
+
+.game-card p{
+    font-size:12px;
+    margin-top:5px;
 }
 
 /* BOTTOM NAV */
@@ -145,7 +155,8 @@ body{
     background:#11162a;
     display:flex;
     justify-content:space-around;
-    padding:8px 0;
+    padding:10px 0;
+    border-top:1px solid #1e2a4d;
 }
 
 .bottom-nav div{
@@ -158,7 +169,7 @@ body{
 <body>
 
 <div class="top-bar">
-🎉 Get 100 Points Free - Join AureSpin Today!
+🎉 Get 100 Free Points Today!
 </div>
 
 <div class="header">
@@ -169,48 +180,48 @@ body{
     </div>
 </div>
 
-<div class="hero">
-    <h2>Wanna Earn Big Rewards?</h2>
-    <p>Spin daily. Complete tasks. Unlock bonuses.</p>
-</div>
+<div class="main">
 
-<div class="promos">
-    <div class="promo-card">🎁 100 Free Points</div>
-    <div class="promo-card">💰 Weekly Lucky Draw</div>
-    <div class="promo-card">🔥 Daily Bonus</div>
-</div>
-
-<div class="announcement">
-📢 Participate daily to earn exciting rewards!
-</div>
-
-<div class="tabs">
-    <button class="active">All</button>
-    <button>Spin</button>
-    <button>Popular</button>
-    <button>Originals</button>
-</div>
-
-<div class="games">
-    <div class="game-card">
-        <h4>🎡 Spin Wheel</h4>
-        <p>Win instant points</p>
+    <div class="hero">
+        <h2>Earn Big Rewards Daily</h2>
+        <p>Spin. Play. Unlock Bonuses.</p>
     </div>
 
-    <div class="game-card">
-        <h4>🎁 Reward Chest</h4>
-        <p>Open surprise rewards</p>
+    <div class="promos">
+        <div class="promo-card">🎁 100 Free Points</div>
+        <div class="promo-card">💰 Weekly Lucky Draw</div>
+        <div class="promo-card">🔥 Daily Bonus</div>
     </div>
 
-    <div class="game-card">
-        <h4>🔥 Lucky Draw</h4>
-        <p>Weekly big prizes</p>
+    <div class="tabs">
+        <button class="active">All</button>
+        <button>Spin</button>
+        <button>Popular</button>
+        <button>Originals</button>
     </div>
 
-    <div class="game-card">
-        <h4>💎 Bonus Spin</h4>
-        <p>Extra spin chance</p>
+    <div class="games">
+        <div class="game-card">
+            <h4>🎡 Spin Wheel</h4>
+            <p>Win instant points</p>
+        </div>
+
+        <div class="game-card">
+            <h4>🎁 Reward Chest</h4>
+            <p>Open surprise rewards</p>
+        </div>
+
+        <div class="game-card">
+            <h4>🔥 Lucky Draw</h4>
+            <p>Weekly big prizes</p>
+        </div>
+
+        <div class="game-card">
+            <h4>💎 Bonus Spin</h4>
+            <p>Extra spin chance</p>
+        </div>
     </div>
+
 </div>
 
 <div class="bottom-nav">
