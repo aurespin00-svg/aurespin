@@ -3,190 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AureSpin</title>
-
+<title>AureSpin - Play. Win. Repeat.</title>
 <style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0b0f1c;
-    color:white;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    text-align: center;
 }
-
-/* HEADER */
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px;
-    background:#11162a;
+header {
+    padding: 60px 20px;
 }
-
-.logo{
-    font-size:20px;
-    font-weight:bold;
-    color:gold;
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
 }
-
-.auth-btns button{
-    margin-left:8px;
-    padding:6px 12px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
+p {
+    font-size: 1.2em;
+    opacity: 0.9;
 }
-
-.login{background:#1e2a4d;color:white;}
-.register{background:gold;color:black;font-weight:bold;}
-
-/* BANNER */
-.banner{
-    margin:15px;
-    padding:20px;
-    border-radius:15px;
-    background:linear-gradient(135deg,#1c2b55,#0d1b3d);
-    text-align:center;
-    box-shadow:0 0 20px rgba(0,0,255,0.3);
+.button {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 15px 35px;
+    font-size: 1.1em;
+    color: white;
+    background: gold;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
 }
-
-.banner h2{
-    color:gold;
+.section {
+    padding: 60px 20px;
 }
-
-/* CATEGORIES */
-.categories{
-    display:flex;
-    overflow-x:auto;
-    padding:10px;
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 350px;
+    border-radius: 15px;
 }
-
-.categories button{
-    margin-right:10px;
-    padding:8px 16px;
-    border:none;
-    border-radius:20px;
-    background:#1e2a4d;
-    color:white;
-    cursor:pointer;
-}
-
-.categories button.active{
-    background:gold;
-    color:black;
-    font-weight:bold;
-}
-
-/* CARDS */
-.cards{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    padding:15px;
-}
-
-.card{
-    background:#141a2e;
-    border-radius:15px;
-    padding:15px;
-    text-align:center;
-    box-shadow:0 0 15px rgba(0,0,255,0.2);
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:scale(1.05);
-}
-
-.card h3{
-    color:gold;
-}
-
-.card button{
-    margin-top:10px;
-    padding:6px 12px;
-    border:none;
-    border-radius:6px;
-    background:gold;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* BOTTOM NAV */
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#11162a;
-    display:flex;
-    justify-content:space-around;
-    padding:10px 0;
-}
-
-.bottom-nav div{
-    text-align:center;
-    font-size:12px;
-    color:white;
+footer {
+    padding: 30px;
+    font-size: 0.9em;
+    opacity: 0.7;
 }
 </style>
 </head>
-
 <body>
 
-<div class="header">
-    <div class="logo">AureSpin</div>
-    <div class="auth-btns">
-        <button class="login">Sign In</button>
-        <button class="register">Register</button>
-    </div>
-</div>
+<header>
+    <h1>🎰 AureSpin</h1>
+    <p>Play. Win. Repeat.</p>
+    <a href="#" class="button">Start Playing</a>
+</header>
 
-<div class="banner">
-    <h2>🎉 Get 100 Points Free!</h2>
-    <p>Spin daily and earn exciting rewards.</p>
-</div>
-
-<div class="categories">
-    <button class="active">All</button>
-    <button>Spin</button>
-    <button>Popular</button>
-    <button>Rewards</button>
-</div>
-
-<div class="cards">
-
+<div class="section">
+    <h2>Why Choose AureSpin?</h2>
     <div class="card">
-        <h3>🎡 Spin Wheel</h3>
-        <p>Spin and win points instantly.</p>
-        <button onclick="alert('Spin Game Coming Next Phase')">Play</button>
+        <h3>⚡ Fast Rewards</h3>
+        <p>Instant spins. Instant excitement.</p>
     </div>
-
     <div class="card">
-        <h3>🎁 Daily Bonus</h3>
-        <p>Claim your daily reward.</p>
-        <button onclick="alert('Daily Bonus Coming')">Claim</button>
+        <h3>🔒 Secure Platform</h3>
+        <p>Your safety is our priority.</p>
     </div>
-
     <div class="card">
-        <h3>💎 Reward Chest</h3>
-        <p>Open and win surprise points.</p>
-        <button onclick="alert('Chest Feature Coming')">Open</button>
+        <h3>🌍 Global Access</h3>
+        <p>Play from anywhere in the world.</p>
     </div>
-
-    <div class="card">
-        <h3>🔥 Lucky Draw</h3>
-        <p>Enter weekly big prize draw.</p>
-        <button onclick="alert('Lucky Draw Coming')">Enter</button>
-    </div>
-
 </div>
 
-<div class="bottom-nav">
-    <div>🏠<br>Home</div>
-    <div>🎁<br>Rewards</div>
-    <div>💰<br>Wallet</div>
-    <div>👤<br>Profile</div>
-</div>
+<footer>
+    © 2026 AureSpin. All Rights Reserved.
+</footer>
 
 </body>
 </html>
