@@ -3,81 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AureSpin - Play. Win. Repeat.</title>
+<title>AureSpin - Rewards Platform</title>
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background: radial-gradient(circle at top, #1a1a2e, #0f0c29);
     color: white;
     text-align: center;
 }
+
 header {
-    padding: 60px 20px;
-}
-h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-}
-p {
-    font-size: 1.2em;
-    opacity: 0.9;
-}
-.button {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 15px 35px;
-    font-size: 1.1em;
-    color: white;
-    background: gold;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-}
-.section {
-    padding: 60px 20px;
-}
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 25px;
-    margin: 20px auto;
-    max-width: 350px;
-    border-radius: 15px;
-}
-footer {
     padding: 30px;
-    font-size: 0.9em;
-    opacity: 0.7;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: gold;
+}
+
+.balance {
+    margin: 15px;
+    font-size: 1.2em;
+}
+
+#wheel {
+    margin: 30px auto;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 8px solid gold;
+    position: relative;
+    transition: transform 4s ease-out;
+    background: conic-gradient(
+        gold 0deg 60deg,
+        #ff4e50 60deg 120deg,
+        #1e90ff 120deg 180deg,
+        #32cd32 180deg 240deg,
+        #ff69b4 240deg 300deg,
+        #ffa500 300deg 360deg
+    );
+}
+
+button {
+    padding: 12px 30px;
+    font-size: 1em;
+    border: none;
+    border-radius: 25px;
+    background: gold;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: gray;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 1.2em;
 }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>🎰 AureSpin</h1>
-    <p>Play. Win. Repeat.</p>
-    <a href="#" class="button">Start Playing</a>
+    <h1>🎡 AureSpin</h1>
+    <div class="balance">Points: <span id="points">100</span></div>
 </header>
 
-<div class="section">
-    <h2>Why Choose AureSpin?</h2>
-    <div class="card">
-        <h3>⚡ Fast Rewards</h3>
-        <p>Instant spins. Instant excitement.</p>
-    </div>
-    <div class="card">
-        <h3>🔒 Secure Platform</h3>
-        <p>Your safety is our priority.</p>
-    </div>
-    <div class="card">
-        <h3>🌍 Global Access</h3>
-        <p>Play from anywhere in the world.</p>
-    </div>
-</div>
+<div id="wheel"></div>
 
-<footer>
-    © 2026 AureSpin. All Rights Reserved.
-</footer>
+<button onclick="spin()" id="spinBtn">Spin (Cost: 10 Points)</button>
+
+<div class="result" id="result"></div>
+
+<script>
+let points = 100;
+let spinning = false;
+
+const rewards = [5, 10, 15, 20, 25, 50];
+
+function spin() {
+    if (spinning || points < 10) return;
+
+    spinning = true;
+    document.getElementById("spinBtn").disabled = true;
+
+    points -= 10;
+    document.getElementById("points").innerText = points;
+
+    const randomIndex = Math.floor(Math.random() * rewards.length);
+    const reward = rewards[randomIndex];
+
+    const rotation = 360 * 5 + (randomIndex * 60);
+    document.getElementById("wheel").style.transform = `rotate(${rotation}deg)`;
+
+    setTimeout(() => {
+        points += reward;
+        document.getElementById("points").innerText = points;
+        document.getElementById("result").innerText = `You won ${reward} points! 🎉`;
+
+        spinning = false;
+        document.getElementById("spinBtn").disabled = false;
+    }, 4000);
+}
+</script>
 
 </body>
 </html>
