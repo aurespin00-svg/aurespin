@@ -12,3 +12,20 @@ footer a {
 footer a:hover {
   color: #ccc;
 }
+
+.social-icons {
+  margin-top: 15px;
+}
+
+.social-icons a {
+  color: white;
+  margin: 0 12px;
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #00f7ff;
+  transform: scale(1.2);
+  text-shadow: 0 0 10px #00f7ff;
+}
