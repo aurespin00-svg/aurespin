@@ -259,6 +259,28 @@ footer a:hover {
   text-align: center;
   color: white;
 }    
+
+.wheel-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.wheel {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 8px solid gold;
+  background: conic-gradient(
+    #ff4d4d 0deg 60deg,
+    #4dff4d 60deg 120deg,
+    #4d4dff 120deg 180deg,
+    #ffff4d 180deg 240deg,
+    #ff4dff 240deg 300deg,
+    #4dffff 300deg 360deg
+  );
+  transition: transform 2s ease-out;
+}
     
 </style>
 </head>
@@ -278,7 +300,11 @@ footer a:hover {
     <p>🎟 Spins Left: <span id="spins">3</span></p>
   </div>
 
-  <button id="spinBtn" class="spin-btn">SPIN</button>
+  <div class="wheel-container">
+  <div id="wheel" class="wheel"></div>
+</div>
+
+<button id="spinBtn" class="spin-btn">SPIN</button>
 
   <p id="result"></p>
 
@@ -378,34 +404,40 @@ footer a:hover {
 <script>
 let points = 0;
 let spins = 3;
+let rotation = 0;
 
 const spinBtn = document.getElementById("spinBtn");
 const pointsDisplay = document.getElementById("points");
 const spinsDisplay = document.getElementById("spins");
 const result = document.getElementById("result");
 const popup = document.getElementById("unlockPopup");
+const wheel = document.getElementById("wheel");
 
 spinBtn.addEventListener("click", function() {
 
   if (spins > 0) {
-    let reward = Math.floor(Math.random() * 491) + 10; // 10–500
+
+    let reward = Math.floor(Math.random() * 491) + 10;
     points += reward;
     spins--;
 
-    pointsDisplay.textContent = points;
-    spinsDisplay.textContent = spins;
-    result.textContent = "🎉 You won " + reward + " points!";
+    rotation += 1080 + Math.floor(Math.random() * 360);
+    wheel.style.transform = "rotate(" + rotation + "deg)";
 
-    if (spins === 0) {
-      popup.style.display = "flex";
-    }
+    setTimeout(() => {
+      pointsDisplay.textContent = points;
+      spinsDisplay.textContent = spins;
+      result.textContent = "🎉 You won " + reward + " points!";
 
+      if (spins === 0) {
+        popup.style.display = "flex";
+      }
+    }, 2000);
   }
 });
 
 function unlockSpins() {
-  // 🔥 Replace this with CPA link later
-  window.location.href = "https://YOUR-CPA-OFFER-LINK-HERE.com";
+  window.location.href = "https://YOUR-CPA-OFFER-LINK.com";
 }
 </script>
     
