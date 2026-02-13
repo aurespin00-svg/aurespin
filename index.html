@@ -208,6 +208,57 @@ footer a:hover {
   line-height: 1.6;
   opacity: 0.9;
 }      
+
+.game-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.stats p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.spin-btn {
+  padding: 15px 40px;
+  font-size: 18px;
+  background: gold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.spin-btn:hover {
+  background: orange;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: #111827;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}    
     
 </style>
 </head>
@@ -217,6 +268,30 @@ footer a:hover {
     <h1>🎰 AureSpin</h1>
     <p>Play. Win. Repeat.</p>
     <a href="#" class="button">Spin & Earn Rewards</a>
+
+    <section class="game-section">
+
+  <h2>🎰 Spin & Earn Rewards</h2>
+
+  <div class="stats">
+    <p>🪙 Points: <span id="points">0</span></p>
+    <p>🎟 Spins Left: <span id="spins">3</span></p>
+  </div>
+
+  <button id="spinBtn" class="spin-btn">SPIN</button>
+
+  <p id="result"></p>
+
+</section>
+
+<!-- Unlock Popup -->
+<div id="unlockPopup" class="popup">
+  <div class="popup-content">
+    <h3>🎁 No Spins Left!</h3>
+    <p>Complete one quick task to unlock 5 FREE spins.</p>
+    <button onclick="unlockSpins()">Unlock Spins</button>
+  </div>
+</div>
 
     <!-- Trust Line -->
 <div class="hero-trust">
@@ -299,6 +374,40 @@ footer a:hover {
   </p>
 
 </footer>   
-        
+
+<script>
+let points = 0;
+let spins = 3;
+
+const spinBtn = document.getElementById("spinBtn");
+const pointsDisplay = document.getElementById("points");
+const spinsDisplay = document.getElementById("spins");
+const result = document.getElementById("result");
+const popup = document.getElementById("unlockPopup");
+
+spinBtn.addEventListener("click", function() {
+
+  if (spins > 0) {
+    let reward = Math.floor(Math.random() * 491) + 10; // 10–500
+    points += reward;
+    spins--;
+
+    pointsDisplay.textContent = points;
+    spinsDisplay.textContent = spins;
+    result.textContent = "🎉 You won " + reward + " points!";
+
+    if (spins === 0) {
+      popup.style.display = "flex";
+    }
+
+  }
+});
+
+function unlockSpins() {
+  // 🔥 Replace this with CPA link later
+  window.location.href = "https://YOUR-CPA-OFFER-LINK-HERE.com";
+}
+</script>
+    
 </body>
 </html>
