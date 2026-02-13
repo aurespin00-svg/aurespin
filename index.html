@@ -281,6 +281,22 @@ footer a:hover {
   );
   transition: transform 2s ease-out;
 }
+
+.progress-bar {
+  width: 80%;
+  height: 20px;
+  background: #333;
+  margin: 15px auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#progress {
+  height: 100%;
+  width: 0%;
+  background: gold;
+  transition: width 0.5s ease;
+}
     
 </style>
 </head>
@@ -306,6 +322,11 @@ footer a:hover {
 <button id="spinBtn" class="spin-btn">SPIN</button>
 
   <p id="result"></p>
+
+<p>🎯 Reward Goal: <span id="goal">2000</span> Points</p>
+<div class="progress-bar">
+  <div id="progress"></div>
+</div>        
 
 </section>
 
@@ -401,6 +422,10 @@ footer a:hover {
 </footer>   
 
 <script>
+
+let goal = 2000;
+const progressBar = document.getElementById("progress");
+    
 let points = 0;
 let spins = 3;
 let rotation = 0;
@@ -424,6 +449,11 @@ spinBtn.addEventListener("click", function() {
     wheel.style.transform = "rotate(" + rotation + "deg)";
 
     setTimeout(() => {
+
+let progressPercent = (points / goal) * 100;
+if (progressPercent > 100) progressPercent = 100;
+progressBar.style.width = progressPercent + "%";        
+        
       pointsDisplay.textContent = points;
       spinsDisplay.textContent = spins;
       result.textContent = "🎉 You won " + reward + " points!";
