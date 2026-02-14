@@ -543,6 +543,20 @@ body {
   
 <script>
 
+if (localStorage.getItem("unlockClicks")) {
+  document.getElementById("result").innerHTML += 
+    "<br><span style='color:gold;'>Welcome back! Your bonus is waiting.</span>";
+}    
+
+let urlParams = new URLSearchParams(window.location.search);
+let source = urlParams.get("src");
+
+if (source) {
+  localStorage.setItem("trafficSource", source);
+}
+
+console.log("Traffic Source:", localStorage.getItem("trafficSource"));    
+
 let points = localStorage.getItem("points") ? parseInt(localStorage.getItem("points")) : 0;
 let spins = localStorage.getItem("spins") ? parseInt(localStorage.getItem("spins")) : 3;
 let goal = 2000;
@@ -623,6 +637,17 @@ if (randomIndex < 2) {   // 2% chance jackpot
       else {
         result.innerHTML = "🎉 You won " + reward + " points!";
       }
+        // Traffic-based bonus message
+let sourceStored = localStorage.getItem("trafficSource");
+
+if (sourceStored === "tiktok") {
+  result.innerHTML += "<br><span style='color:gold;'>🔥 TikTok Bonus Active!</span>";
+}
+
+if (sourceStored === "telegram") {
+  result.innerHTML += "<br><span style='color:gold;'>🎁 Telegram VIP Spins!</span>";
+}
+        
         // Soft tease when 1 spin left
   if (spins === 1) {
     result.innerHTML += "<br><span style='color:gold;'>⚡ Almost out of spins! Bonus available.</span>";
