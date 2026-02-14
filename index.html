@@ -479,23 +479,6 @@ body {
   
 <script>
 
-let refCode = localStorage.getItem("refCode");
-
-if (!refCode) {
-  refCode = Math.random().toString(36).substring(2, 8);
-  localStorage.setItem("refCode", refCode);
-}
-
-document.getElementById("refLink").value =
-  window.location.origin + "?ref=" + refCode;
-
-function copyRef() {
-  let copyText = document.getElementById("refLink");
-  copyText.select();
-  document.execCommand("copy");
-  alert("Referral link copied!");
-}    
-
 let today = new Date().toLocaleDateString();
 let lastVisit = localStorage.getItem("lastVisit");
 
@@ -527,6 +510,8 @@ spinBtn.addEventListener("click", function() {
                          
   if (spins > 0) {
 
+    document.getElementById("spinSound").play();
+
     let reward = Math.floor(Math.random() * 491) + 10;
     points += reward;
     spins--;
@@ -534,6 +519,12 @@ spinBtn.addEventListener("click", function() {
     rotation += 1080 + Math.floor(Math.random() * 360);
     wheel.style.transform = "rotate(" + rotation + "deg)";
 
+    localStorage.setItem("points", points);
+    localStorage.setItem("spins", spins);
+    updateProgress();
+
+}  
+      
     setTimeout(() => {
 
 let progressPercent = (points / goal) * 100;
@@ -550,6 +541,23 @@ progressBar.style.width = progressPercent + "%";
     }, 2000);
   }
 });
+
+let refCode = localStorage.getItem("refCode");
+
+if (!refCode) {
+  refCode = Math.random().toString(36).substring(2, 8);
+  localStorage.setItem("refCode", refCode);
+}
+
+document.getElementById("refLink").value =
+  window.location.origin + "?ref=" + refCode;
+
+function copyRef() {
+  let copyText = document.getElementById("refLink");
+  copyText.select();
+  document.execCommand("copy");
+  alert("Referral link copied!");
+}        
 
 function unlockSpins() {
   localStorage.setItem("spins", 5);
