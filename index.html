@@ -297,6 +297,86 @@ footer a:hover {
   background: gold;
   transition: width 0.5s ease;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #111;
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+  .wheel-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+  }
+  /* Wheel segments */
+  .wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 10px solid #fff;
+    overflow: hidden;
+    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+  }
+  .segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 0%;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-weight: bold;
+  }
+
+  /* Pointer arrow */
+  .pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #ff0;
+    z-index: 10;
+    animation: glow 1s infinite alternate;
+  }
+
+  /* Glow animation for pointer */
+  @keyframes glow {
+    from { filter: drop-shadow(0 0 5px yellow); }
+    to { filter: drop-shadow(0 0 20px yellow); }
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background: #ff0;
+    color: #000;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+
+  .message {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+  }
     
 </style>
 </head>
@@ -468,6 +548,79 @@ progressBar.style.width = progressPercent + "%";
 function unlockSpins() {
   window.location.href = "https://YOUR-CPA-OFFER-LINK.com";
 }
+</script>
+
+<div class="wheel-container">
+  <div class="pointer"></div>
+  <div id="wheel" class="wheel"></div>
+</div>
+<button id="spinBtn">Spin</button>
+<div class="message" id="message"></div>
+
+<!-- Sound effects -->
+<audio id="spinSound" src="https://freesound.org/data/previews/320/320655_4939433-lq.mp3"></audio>
+<audio id="winSound" src="https://freesound.org/data/previews/320/320654_4939433-lq.mp3"></audio>    
+
+<script>
+  const segments = ["$10", "$50", "$100", "$200", "Lose", "$500", "$20", "$300"];
+  const wheel = document.getElementById("wheel");
+  const message = document.getElementById("message");
+  const spinBtn = document.getElementById("spinBtn");
+  const spinSound = document.getElementById("spinSound");
+  const winSound = document.getElementById("winSound");
+  const numSegments = segments.length;
+  let spinsLeft = parseInt(localStorage.getItem('spinsLeft')) || 3;
+  let lastSpinDate = localStorage.getItem('lastSpinDate') || '';
+
+  // Daily reset
+  const today = new Date().toDateString();
+  if(lastSpinDate !== today){
+    spinsLeft = 3; // reset spins
+    localStorage.setItem('lastSpinDate', today);
+    localStorage.setItem('spinsLeft', spinsLeft);
+  }
+
+  // Create wheel segments
+  segments.forEach((text, i) => {
+    const seg = document.createElement('div');
+    seg.classList.add('segment');
+    seg.style.transform = `rotate(${i*(360/numSegments)}deg)`;
+    seg.style.background = i%2===0 ? '#ff0044' : '#ff8800';
+    seg.innerText = text;
+    wheel.appendChild(seg);
+  });
+
+  // Spin logic
+  spinBtn.addEventListener('click', () => {
+    if(spinsLeft <= 0){
+      message.innerText = "No spins left today! Come back tomorrow.";
+      return;
+    }
+
+    spinsLeft--;
+    localStorage.setItem('spinsLeft', spinsLeft);
+
+    spinSound.play();
+
+    const randomDegree = Math.floor(Math.random()*360) + 720; // spin 2-3 turns
+    wheel.style.transition = "transform 5s cubic-bezier(0.33, 1, 0.68, 1)";
+    wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+    wheel.addEventListener('transitionend', function handler() {
+      const finalDeg = randomDegree % 360;
+      const segmentAngle = 360 / numSegments;
+      const winningIndex = Math.floor((360 - finalDeg) / segmentAngle) % numSegments;
+      message.innerText = `You won: ${segments[winningIndex]}!`;
+      winSound.play();
+
+      // Glow winning segment
+      const segs = document.querySelectorAll('.segment');
+      segs.forEach(s => s.style.filter=''); // reset glow
+      segs[winningIndex].style.filter = 'drop-shadow(0 0 20px yellow)';
+
+      wheel.removeEventListener('transitionend', handler);
+    });
+  });
 </script>
     
 </body>
