@@ -525,8 +525,13 @@ updateProgress();
 
 spinBtn.addEventListener("click", function() {
 
+    localStorage.setItem("points", points);
+    localStorage.setItem("spins", spins);
+    updateProgress();
+
     document.getElementById("spinSound").play();
 }
+                         
   if (spins > 0) {
 
     let reward = Math.floor(Math.random() * 491) + 10;
@@ -535,10 +540,6 @@ spinBtn.addEventListener("click", function() {
 
     rotation += 1080 + Math.floor(Math.random() * 360);
     wheel.style.transform = "rotate(" + rotation + "deg)";
-    localStorage.setItem("points", points);
-    localStorage.setItem("spins", spins);
-    updateProgress();
-
 
     setTimeout(() => {
 
