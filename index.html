@@ -664,7 +664,18 @@ function copyRef() {
 
 // CPA UNLOCK
 function unlockSpins() {
+
+  // Track unlock clicks
+  localStorage.setItem("unlockClicks",
+    (parseInt(localStorage.getItem("unlockClicks")) || 0) + 1
+  );
+
+  console.log("Unlock clicks:",
+    localStorage.getItem("unlockClicks")
+  );
+
   localStorage.setItem("spins", 5);
+
   window.location.href = "https://YOUR-CPA-OFFER-LINK.com";
 }
 
