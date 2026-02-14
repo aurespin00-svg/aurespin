@@ -515,22 +515,32 @@ spinBtn.addEventListener("click", function() {
 
     document.getElementById("spinSound").play();
 
-    let reward = Math.floor(Math.random() * 491) + 10;
-
-    points += reward;
     spins--;
 
-    rotation += 1080 + Math.floor(Math.random() * 360);
+    // Spin rotation
+    let spinDegrees = 1080 + Math.floor(Math.random() * 360);
+    rotation += spinDegrees;
     wheel.style.transform = "rotate(" + rotation + "deg)";
 
-    localStorage.setItem("points", points);
-    localStorage.setItem("spins", spins);
+    // Calculate final angle
+    let finalAngle = rotation % 360;
+    let segment = Math.floor((360 - finalAngle) / 60) % 6;
+
+    // Prize list (must match 6 wheel colors)
+    let prizes = [50, 100, 250, 500, 75, 150];
+
+    let reward = prizes[segment];
 
     setTimeout(() => {
 
+      points += reward;
+
+      localStorage.setItem("points", points);
+      localStorage.setItem("spins", spins);
+
       pointsDisplay.textContent = points;
       spinsDisplay.textContent = spins;
-      result.textContent = "🎉 You won " + reward + " points!";
+      result.textContent = "🎉 Wheel landed on " + reward + " points!";
 
       updateProgress();
 
