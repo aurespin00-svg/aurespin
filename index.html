@@ -219,21 +219,6 @@ footer a:hover {
   margin: 10px 0;
 }
 
-.spin-btn {
-  padding: 15px 40px;
-  font-size: 18px;
-  background: gold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: 0.3s;
-}
-
-.spin-btn:hover {
-  background: orange;
-}
-
 #result {
   margin-top: 20px;
   font-size: 20px;
@@ -260,17 +245,24 @@ footer a:hover {
   color: white;
 }    
 
+body {
+  background: radial-gradient(circle at center, #111827, #000);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
 .wheel-container {
+  position: relative;
   display: flex;
   justify-content: center;
-  margin: 30px 0;
+  margin: 40px 0;
 }
 
 .wheel {
-  width: 220px;
-  height: 220px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
-  border: 8px solid gold;
+  border: 10px solid gold;
   background: conic-gradient(
     #ff4d4d 0deg 60deg,
     #4dff4d 60deg 120deg,
@@ -279,7 +271,37 @@ footer a:hover {
     #ff4dff 240deg 300deg,
     #4dffff 300deg 360deg
   );
-  transition: transform 2s ease-out;
+  box-shadow: 0 0 25px gold, 0 0 50px orange;
+  transition: transform 3s cubic-bezier(.17,.67,.83,.67);
+}
+
+.pointer {
+  position: absolute;
+  top: -15px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 25px solid gold;
+  z-index: 10;
+}
+
+.spin-btn {
+  padding: 15px 50px;
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(45deg, gold, orange);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 0 15px gold;
+  transition: 0.3s ease;
+}
+
+.spin-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px orange;
 }
 
 .progress-bar {
@@ -308,6 +330,16 @@ footer a:hover {
   margin: 5px 0;
   font-size: 14px;
 }
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 20px gold; }
+  50% { box-shadow: 0 0 40px orange; }
+  100% { box-shadow: 0 0 20px gold; }
+}
+
+.wheel {
+  animation: glowPulse 2s infinite;
+}
     
 </style>
 </head>
@@ -325,6 +357,7 @@ footer a:hover {
   </div>
 
   <div class="wheel-container">
+  <div class="pointer"></div>    
   <div id="wheel" class="wheel"></div>
 </div>
 
@@ -440,7 +473,9 @@ footer a:hover {
     © 2026 AureSpin. All Rights Reserved.
   </p>
 
-</footer>          
+</footer>      
+
+<audio id="spinSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>    
   
 <script>
 
@@ -490,6 +525,8 @@ updateProgress();
 
 spinBtn.addEventListener("click", function() {
 
+    document.getElementById("spinSound").play();
+}
   if (spins > 0) {
 
     let reward = Math.floor(Math.random() * 491) + 10;
@@ -498,11 +535,11 @@ spinBtn.addEventListener("click", function() {
 
     rotation += 1080 + Math.floor(Math.random() * 360);
     wheel.style.transform = "rotate(" + rotation + "deg)";
+    localStorage.setItem("points", points);
+    localStorage.setItem("spins", spins);
+    updateProgress();
 
-localStorage.setItem("points", points);
-localStorage.setItem("spins", spins);
-updateProgress();
-      
+
     setTimeout(() => {
 
 let progressPercent = (points / goal) * 100;
