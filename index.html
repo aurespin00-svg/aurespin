@@ -446,11 +446,14 @@ body {
 <div id="unlockPopup" class="popup">
   <div class="popup-content">
     <h3>🎯 You’re 1 Step Away!</h3>
-<p>Complete 1 quick task to unlock 5 FREE spins and boost your rewards.</p>
-<p style="color: gold; font-weight: bold;">
-⚡ Limited bonus active!
-</p>
-<button onclick="unlockSpins()">Unlock Now</button>
+    <p>Complete 1 quick task to unlock 5 FREE spins and boost your rewards.</p>
+
+    <input type="email"
+           id="userEmail"
+           placeholder="Enter email for bonus spins"
+           style="padding:10px; width:80%; margin:10px 0; border-radius:8px; border:none;">
+
+    <button onclick="unlockSpins()">Unlock Spins</button>
   </div>
 </div>
 
@@ -620,6 +623,10 @@ if (randomIndex < 2) {   // 2% chance jackpot
       else {
         result.innerHTML = "🎉 You won " + reward + " points!";
       }
+        // Soft tease when 1 spin left
+  if (spins === 1) {
+    result.innerHTML += "<br><span style='color:gold;'>⚡ Almost out of spins! Bonus available.</span>";
+  }
 
       let history = document.getElementById("winHistory");
 let item = document.createElement("li");
