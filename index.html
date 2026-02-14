@@ -479,6 +479,12 @@ body {
   
 <script>
 
+let points = localStorage.getItem("points") ? parseInt(localStorage.getItem("points")) : 0;
+let spins = localStorage.getItem("spins") ? parseInt(localStorage.getItem("spins")) : 3;
+let goal = 2000;
+let rotation = 0;
+
+// DAILY RESET
 let today = new Date().toLocaleDateString();
 let lastVisit = localStorage.getItem("lastVisit");
 
@@ -486,13 +492,9 @@ if (lastVisit !== today) {
   spins = 3;
   localStorage.setItem("spins", spins);
   localStorage.setItem("lastVisit", today);
-}   
+}
 
-let points = localStorage.getItem("points") ? parseInt(localStorage.getItem("points")) : 0;
-let spins = localStorage.getItem("spins") ? parseInt(localStorage.getItem("spins")) : 3;
-let goal = 2000;
-let rotation = 0;
-
+// ELEMENTS
 const spinBtn = document.getElementById("spinBtn");
 const pointsDisplay = document.getElementById("points");
 const spinsDisplay = document.getElementById("spins");
@@ -501,18 +503,20 @@ const popup = document.getElementById("unlockPopup");
 const wheel = document.getElementById("wheel");
 const progressBar = document.getElementById("progress");
 
+// INITIAL DISPLAY
 pointsDisplay.textContent = points;
 spinsDisplay.textContent = spins;
-
 updateProgress();
 
+// SPIN EVENT
 spinBtn.addEventListener("click", function() {
-                         
+
   if (spins > 0) {
 
     document.getElementById("spinSound").play();
 
     let reward = Math.floor(Math.random() * 491) + 10;
+
     points += reward;
     spins--;
 
@@ -521,27 +525,24 @@ spinBtn.addEventListener("click", function() {
 
     localStorage.setItem("points", points);
     localStorage.setItem("spins", spins);
-    updateProgress();
 
-}  
-      
     setTimeout(() => {
 
-let progressPercent = (points / goal) * 100;
-if (progressPercent > 100) progressPercent = 100;
-progressBar.style.width = progressPercent + "%";        
-        
       pointsDisplay.textContent = points;
       spinsDisplay.textContent = spins;
       result.textContent = "🎉 You won " + reward + " points!";
 
+      updateProgress();
+
       if (spins === 0) {
         popup.style.display = "flex";
       }
-    }, 2000);
+
+    }, 3000);
   }
 });
 
+// REFERRAL SYSTEM
 let refCode = localStorage.getItem("refCode");
 
 if (!refCode) {
@@ -557,19 +558,21 @@ function copyRef() {
   copyText.select();
   document.execCommand("copy");
   alert("Referral link copied!");
-}        
+}
 
+// CPA UNLOCK
 function unlockSpins() {
   localStorage.setItem("spins", 5);
   window.location.href = "https://YOUR-CPA-OFFER-LINK.com";
 }
 
+// PROGRESS BAR
 function updateProgress() {
   let progressPercent = (points / goal) * 100;
   if (progressPercent > 100) progressPercent = 100;
   progressBar.style.width = progressPercent + "%";
 }
-    
+
 </script>
 
 </body>
