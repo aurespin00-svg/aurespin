@@ -798,9 +798,6 @@ function unlockSpins() {
     (parseInt(localStorage.getItem("unlockClicks")) || 0) + 1
   );
 
-
-  localStorage.setItem("spins", 5);
-
   setTimeout(() => {
   window.open("https://YOUR-CPA-OFFER-LINK.com", "_blank");
 }, 500);
