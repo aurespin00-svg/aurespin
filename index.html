@@ -717,6 +717,7 @@ spinBtn.addEventListener("click", function() {
   if (spins > 0) {  
     isSpinning = true;
 
+    spinSound.currentTime = 0;  
     spinSound.play();  
 
     spins--;
