@@ -748,7 +748,6 @@ function animatePoints(timestamp) {
 
 requestAnimationFrame(animatePoints);
 
-      localStorage.setItem("points", points);
       localStorage.setItem("spins", spins);
 
       pointsDisplay.textContent = points;
@@ -944,7 +943,6 @@ function showLiveWin() {
 setInterval(showLiveWin, 15000);   
 
 // FAKE SCARCITY COUNTER
-let spots = 37;
 
 setInterval(() => {
   if (spots > 12) {
