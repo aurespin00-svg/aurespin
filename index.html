@@ -668,11 +668,6 @@ spinBtn.addEventListener("click", function() {
     rotation += spinDegrees;
     wheel.style.transform = "rotate(" + rotation + "deg)";
 
-    let finalAngle = rotation % 360;
-    let segment = Math.floor((360 - finalAngle) / (360 / 7)) % 7;
-
-    let prizes = [50, 100, 250, 500, 75, 150, 1000];
-
 let prizes = [50, 100, 250, 500, 75, 150, 1000];
 
 // Calculate reward based on where wheel stops
