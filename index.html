@@ -384,6 +384,27 @@ body {
 body {
   padding-bottom: 80px;
 }
+
+@media (max-width: 480px) {
+  .wheel {
+    width: 220px;
+    height: 220px;
+  }
+
+  .wheel-labels {
+    width: 220px;
+    height: 220px;
+  }
+
+  .spin-btn {
+    width: 90%;
+    font-size: 18px;
+  }
+
+  .card {
+    max-width: 90%;
+  }
+}    
     
 </style>
 
@@ -652,16 +673,14 @@ spinBtn.addEventListener("click", function() {
 
     let prizes = [50, 100, 250, 500, 75, 150, 1000];
 
-// Reduce jackpot probability
-let randomIndex = Math.floor(Math.random() * 100);
+let prizes = [50, 100, 250, 500, 75, 150, 1000];
 
-let reward;
+// Calculate reward based on where wheel stops
+let segmentAngle = 360 / 7;
+let adjustedAngle = (360 - (rotation % 360)) % 360;
+let segmentIndex = Math.floor(adjustedAngle / segmentAngle);
 
-if (randomIndex < 2) {   // 2% chance jackpot
-  reward = 1000;
-} else {
-  reward = prizes[Math.floor(Math.random() * 6)];
-}
+let reward = prizes[segmentIndex];
 
     setTimeout(() => {
 
@@ -744,6 +763,18 @@ function copyRef() {
 
 // CPA UNLOCK
 function unlockSpins() {
+
+  let email = document.getElementById("userEmail").value;
+
+  if (!email || !email.includes("@")) {
+    alert("Please enter a valid email to unlock bonus spins.");
+    return;
+  }
+
+  gtag('event', 'unlock_click', {
+  event_category: 'engagement',
+  event_label: 'CPA Unlock Button'
+});  
 
   // Track unlock clicks
   localStorage.setItem("unlockClicks",
