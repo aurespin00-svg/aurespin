@@ -632,62 +632,32 @@ ttq.page();
   
 <script>
 
-// Smart scarcity system
-let storedSpots = localStorage.getItem("spotsLeft");
+// ===============================
+// SAFE AURESPIN CORE SCRIPT
+// Ad-Friendly / CPA-Friendly
+// ===============================
 
-if (!storedSpots) {
-  storedSpots = Math.floor(Math.random() * 20) + 18; // 18–38
-  localStorage.setItem("spotsLeft", storedSpots);
-}
-
-let spotsLeft = parseInt(storedSpots);
-document.getElementById("spotsLeft").textContent = spotsLeft;
-
-setInterval(() => {
-  if (spotsLeft > 7) {
-    spotsLeft--;
-    document.getElementById("spotsLeft").textContent = spotsLeft;
-    localStorage.setItem("spotsLeft", spotsLeft);
-  }
-}, 20000);
-
-let jackpotActive = false;    
-
-let isSpinning = false;    
-
-if (localStorage.getItem("unlockClicks")) {
-  document.getElementById("result").innerHTML += 
-    "<br><span style='color:gold;'>Welcome back! Your bonus is waiting.</span>";
-}    
-
-let urlParams = new URLSearchParams(window.location.search);
-let source = urlParams.get("src");
-
-if (source) {
-  localStorage.setItem("trafficSource", source);
-}
-
-console.log("Traffic Source:", localStorage.getItem("trafficSource"));    
-
-let points = localStorage.getItem("points") ? parseInt(localStorage.getItem("points")) : 0;
-let spins = localStorage.getItem("spins") ? parseInt(localStorage.getItem("spins")) : 3;
+// ----- BASIC STATE -----
+let points = parseInt(localStorage.getItem("points")) || 0;
+let spins = parseInt(localStorage.getItem("spins")) || 3;
 let goal = 2000;
 let rotation = 0;
+let isSpinning = false;
 
-// DAILY RESET
-let today = new Date().toLocaleDateString();
-let lastVisit = localStorage.getItem("lastVisit");
+// ----- DAILY RESET (REAL 24H RESET) -----
+const now = new Date().getTime();
+const lastReset = parseInt(localStorage.getItem("lastReset")) || 0;
+const resetInterval = 24 * 60 * 60 * 1000; // 24 hours
 
-if (lastVisit !== today) {
+if (now - lastReset > resetInterval) {
   spins = 3;
-  points = 0; // reset points daily
-
+  points = 0;
+  localStorage.setItem("lastReset", now);
   localStorage.setItem("spins", spins);
   localStorage.setItem("points", points);
-  localStorage.setItem("lastVisit", today);
 }
 
-// ELEMENTS
+// ----- ELEMENTS -----
 const spinBtn = document.getElementById("spinBtn");
 const pointsDisplay = document.getElementById("points");
 const spinsDisplay = document.getElementById("spins");
@@ -695,129 +665,101 @@ const result = document.getElementById("result");
 const popup = document.getElementById("unlockPopup");
 const wheel = document.getElementById("wheel");
 const progressBar = document.getElementById("progress");
-const spinSound = document.getElementById("spinSound");      
+const spinSound = document.getElementById("spinSound");
 
-// INITIAL DISPLAY
+// ----- INITIAL UI -----
 pointsDisplay.textContent = points;
 spinsDisplay.textContent = spins;
 updateProgress();
 
-// SPIN EVENT
-spinBtn.addEventListener("click", function() {
+// ----- SPIN LOGIC (FAIR VISUAL RANDOMIZATION) -----
+spinBtn.addEventListener("click", function () {
+
   if (isSpinning) return;
 
-  if (spins > 0) {  
-    isSpinning = true;
-
-    spinSound.currentTime = 0;  
-    spinSound.play();  
-
-    spins--;
-
-    let spinDegrees = 1440 + Math.floor(Math.random() * 360);
-    rotation += spinDegrees;
-    wheel.style.transform = "rotate(" + rotation + "deg)";
-
-let prizes = [50, 100, 250, 500, 75, 150, 1000];
-
-// Calculate reward based on where wheel stops
-let segmentAngle = 360 / 7;
-let adjustedAngle = (360 - (rotation % 360)) % 360;
-let segmentIndex = Math.floor(adjustedAngle / segmentAngle);
-
-let reward = prizes[segmentIndex];
-
-    setTimeout(() => {
-
-      let start = points;
-let end = points + reward;
-let duration = 800;
-let startTime = null;
-
-function animatePoints(timestamp) {
-  if (!startTime) startTime = timestamp;
-  let progress = timestamp - startTime;
-  let current = Math.min(Math.floor(progress / duration * reward), reward);
-  pointsDisplay.textContent = start + current;
-
-  if (progress < duration) {
-    requestAnimationFrame(animatePoints);
-  } else {
-    points = end;
-    localStorage.setItem("points", points);
+  if (spins <= 0) {
+    popup.style.display = "flex";
+    return;
   }
-}
 
-requestAnimationFrame(animatePoints);
+  isSpinning = true;
+  spins--;
+  spinsDisplay.textContent = spins;
+  localStorage.setItem("spins", spins);
 
-      localStorage.setItem("spins", spins);
+  spinSound.currentTime = 0;
+  spinSound.play();
 
-      spinsDisplay.textContent = spins;
+  let spinDegrees = 1440 + Math.floor(Math.random() * 360);
+  rotation += spinDegrees;
+  wheel.style.transform = "rotate(" + rotation + "deg)";
 
-      if (reward === 1000 && !jackpotActive) {
-  jackpotActive = true;
-
-  result.innerHTML = "💎 JACKPOT! 1000 POINTS 💎";
-  triggerConfetti();
-  flashBigWin();
+  const prizes = [50, 100, 250, 500, 75, 150, 1000];
+  const segmentAngle = 360 / prizes.length;
 
   setTimeout(() => {
-    jackpotActive = false;
+
+    let adjustedAngle = (360 - (rotation % 360)) % 360;
+    let segmentIndex = Math.floor(adjustedAngle / segmentAngle);
+    let reward = prizes[segmentIndex];
+
+    points += reward;
+    localStorage.setItem("points", points);
+    pointsDisplay.textContent = points;
+
+    if (reward >= 500) {
+      result.innerHTML = "🎉 Great spin! You earned " + reward + " points.";
+    } else {
+      result.innerHTML = "You earned " + reward + " points.";
+    }
+
+    updateProgress();
+
+    if (spins === 0) {
+      popup.style.display = "flex";
+    }
+
+    isSpinning = false;
+
   }, 3000);
-}
-      else if (reward >= 500) {
-        result.innerHTML = "🔥 BIG WIN! " + reward + " POINTS 🔥";
-        flashBigWin();
-      } 
-      else {
-        result.innerHTML = "🎉 You won " + reward + " points!";
-      }
-        // Traffic-based bonus message
-let sourceStored = localStorage.getItem("trafficSource");
 
-if (sourceStored === "tiktok") {
-  result.innerHTML += "<br><span style='color:gold;'>🔥 TikTok Bonus Active!</span>";
-}
-
-if (sourceStored === "telegram") {
-  result.innerHTML += "<br><span style='color:gold;'>🎁 Telegram VIP Spins!</span>";
-}
-        
-        // Soft tease when 1 spin left
-  if (spins === 1) {
-    result.innerHTML += "<br><span style='color:gold;'>⚡ Almost out of spins! Bonus available.</span>";
-  }
-
-      let history = document.getElementById("winHistory");
-let item = document.createElement("li");
-item.textContent = "Won " + reward + " pts";
-history.prepend(item);
-
-if (history.children.length > 5) {
-  history.removeChild(history.lastChild);
-}  
-
-      updateProgress();
-
-      if (spins === 0) {
-        popup.style.display = "flex";
-      }
-
-isSpinning = false;
-        
-    }, 3000);
-  }else {
-  popup.style.display = "flex";
-}
 });
 
-function flashBigWin() {
-  result.style.animation = "none";
-  void result.offsetWidth;
-  result.style.animation = "bigFlash 0.8s ease 3";
+// ----- UNLOCK BONUS SPINS (TRANSPARENT) -----
+function unlockSpins() {
+
+  const email = document.getElementById("userEmail").value;
+
+  if (!email || !email.includes("@")) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  // Save email locally (for compliance tracking example)
+  localStorage.setItem("userEmail", email);
+
+  spins = 5;
+  spinsDisplay.textContent = spins;
+  localStorage.setItem("spins", spins);
+
+  popup.style.display = "none";
+
+  // Google Analytics Event
+  if (typeof gtag === "function") {
+    gtag('event', 'bonus_unlock_click', {
+      event_category: 'engagement',
+      event_label: 'Bonus Spins Unlock'
+    });
+  }
+
+  // Open CPA offer AFTER user action (compliant flow)
+  setTimeout(() => {
+    window.open("https://YOUR-CPA-OFFER-LINK.com", "_blank");
+  }, 500);
+
 }
 
-// REFERRAL SYSTEM
+// ----- REFERRAL SYSTEM (SIMPLE / NON-DECEPTIVE) -----
 let refCode = localStorage.getItem("refCode");
 
 if (!refCode) {
@@ -829,91 +771,19 @@ document.getElementById("refLink").value =
   window.location.origin + "?ref=" + refCode;
 
 function copyRef() {
-  let copyText = document.getElementById("refLink");
+  const copyText = document.getElementById("refLink");
   copyText.select();
   navigator.clipboard.writeText(copyText.value);
-  alert("Referral link copied!");
+  alert("Referral link copied.");
 }
 
-// CPA UNLOCK
-function unlockSpins() {
-
-  let email = document.getElementById("userEmail").value;
-
-  if (!email || !email.includes("@")) {
-    alert("Please enter a valid email to unlock bonus spins.");
-    return;
-  }
-
-   // Update spins AFTER validation
-  spins = 5;
-  spinsDisplay.textContent = spins;
-  localStorage.setItem("spins", 5);
-  popup.style.display = "none";  
-
-  gtag('event', 'unlock_click', {
-  event_category: 'engagement',
-  event_label: 'CPA Unlock Button'
-});  
-
-  // Track unlock clicks
-  localStorage.setItem("unlockClicks",
-    (parseInt(localStorage.getItem("unlockClicks")) || 0) + 1
-  );
-
-  console.log("Unlock clicks:",
-    localStorage.getItem("unlockClicks")
-  );  
-
-  setTimeout(() => {
-  window.open("https://YOUR-CPA-OFFER-LINK.com", "_blank");
-}, 500);
-}
-
-// PROGRESS BAR
+// ----- PROGRESS BAR -----
 function updateProgress() {
-  let progressPercent = (points / goal) * 100;
-  if (progressPercent > 100) progressPercent = 100;
-  progressBar.style.width = progressPercent + "%";
+  let percent = (points / goal) * 100;
+  if (percent > 100) percent = 100;
+  progressBar.style.width = percent + "%";
 }
 
-function triggerConfetti() {
-  for (let i = 0; i < 80; i++) {
-    let confetti = document.createElement("div");
-    confetti.style.position = "fixed";
-    confetti.style.width = "6px";
-    confetti.style.height = "6px";
-    confetti.style.backgroundColor = "gold";
-    confetti.style.top = "0";
-    confetti.style.left = Math.random() * window.innerWidth + "px";
-    confetti.style.opacity = "1";
-    confetti.style.zIndex = "9999";
-    document.body.appendChild(confetti);
-
-    let fall = setInterval(() => {
-      confetti.style.top = parseInt(confetti.style.top) + 5 + "px";
-      confetti.style.opacity -= 0.02;
-
-      if (parseFloat(confetti.style.opacity) <= 0) {
-        clearInterval(fall);
-        confetti.remove();
-      }
-    }, 20);
-  }
-}    
-
-let timeLeft = 300; // 5 minutes
-
-setInterval(() => {
-  if (timeLeft > 0) {
-    timeLeft--;
-    let minutes = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
-    document.getElementById("countdown").textContent =
-      minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  }
-},  
-    
 </script>
 
 <div class="bottom-nav">
