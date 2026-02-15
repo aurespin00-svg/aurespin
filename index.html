@@ -787,5 +787,15 @@ function updateProgress() {
   <div>👤 Profile</div>
 </div>     
 
+<script>
+function unlockBonus() {
+    if (typeof _playabledownloads !== "undefined") {
+        _playabledownloads.showLocker();
+    } else {
+        alert("Bonus is loading. Please try again.");
+    }
+}
+</script>
+    
 </body>
 </html>
