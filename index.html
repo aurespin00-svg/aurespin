@@ -645,14 +645,7 @@ setInterval(() => {
   }
 }, 10000);    
 
-let exitShown = false;
-
-document.addEventListener("mouseleave", function(e) {
-  if (e.clientY < 0 && !exitShown) {
-    exitShown = true;
-    popup.style.display = "flex";
-  }
-});    
+let exitShown = false;   
 
 let jackpotActive = false;    
 
@@ -695,7 +688,17 @@ const result = document.getElementById("result");
 const popup = document.getElementById("unlockPopup");
 const wheel = document.getElementById("wheel");
 const progressBar = document.getElementById("progress");
-const spinSound = document.getElementById("spinSound");    
+const spinSound = document.getElementById("spinSound");  
+
+// EXIT INTENT POPUP
+let exitShown = false;
+
+document.addEventListener("mouseleave", function(e) {
+  if (e.clientY < 0 && !exitShown) {
+    exitShown = true;
+    popup.style.display = "flex";
+  }
+});    
 
 // INITIAL DISPLAY
 pointsDisplay.textContent = points;
