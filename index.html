@@ -766,6 +766,10 @@ function copyRef() {
 // CPA UNLOCK
 function unlockSpins() {
 
+  spins = 5;
+spinsDisplay.textContent = spins;
+popup.style.display = "none";  
+
   let email = document.getElementById("userEmail").value;
 
   if (!email || !email.includes("@")) {
