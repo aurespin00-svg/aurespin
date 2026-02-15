@@ -417,6 +417,26 @@ body {
 
   gtag('config', 'G-C05TN2ZX2P');
 </script>  
+
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;
+  var ttq=w[t]=w[t]||[];
+  ttq.methods=["page","track","identify"];
+  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}; 
+  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+  ttq.load=function(e){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+  ttq._i=ttq._i||{};ttq._i[e]=[];ttq._o=ttq._o||{};
+  ttq._o[e]={};ttq._t=ttq._t||{};ttq._t[e]=+new Date;
+  var n=d.createElement("script");
+  n.type="text/javascript";n.async=!0;n.src=i+"?sdkid="+e+"&lib="+t;
+  var s=d.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(n,s)};
+}(window, document, 'ttq');
+
+ttq.load('YOUR_PIXEL_ID');
+ttq.page();
+</script>
     
 </head>
 <body>
@@ -448,7 +468,9 @@ body {
       
 </div>
 
-<p>⏳ Bonus Ends In: <span id="countdown">05:00</span></p>        
+<p>⏳ Bonus Ends In: <span id="countdown">05:00</span></p>    
+
+<p>⚡ Only <span id="spotsLeft">37</span> bonus spots remaining today!</p>        
 
 <button id="spinBtn" class="spin-btn">🎰Spin & Earn Rewards</button>
 
@@ -612,6 +634,24 @@ body {
   
 <script>
 
+let spots = 37;
+
+setInterval(() => {
+  if (spots > 12) {
+    spots--;
+    document.getElementById("spotsLeft").textContent = spots;
+  }
+}, 10000);    
+
+let exitShown = false;
+
+document.addEventListener("mouseleave", function(e) {
+  if (e.clientY < 0 && !exitShown) {
+    exitShown = true;
+    popup.style.display = "flex";
+  }
+});    
+
 let jackpotActive = false;    
 
 let isSpinning = false;    
@@ -685,7 +725,26 @@ let reward = prizes[segmentIndex];
 
     setTimeout(() => {
 
-      points += reward;
+      let start = points;
+let end = points + reward;
+let duration = 800;
+let startTime = null;
+
+function animatePoints(timestamp) {
+  if (!startTime) startTime = timestamp;
+  let progress = timestamp - startTime;
+  let current = Math.min(Math.floor(progress / duration * reward), reward);
+  pointsDisplay.textContent = start + current;
+
+  if (progress < duration) {
+    requestAnimationFrame(animatePoints);
+  } else {
+    points = end;
+    localStorage.setItem("points", points);
+  }
+}
+
+requestAnimationFrame(animatePoints);
 
       localStorage.setItem("points", points);
       localStorage.setItem("spins", spins);
@@ -850,6 +909,37 @@ setInterval(() => {
       minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   }
 }, 1000);    
+
+// Fake live winner notifications
+let names = ["James", "Sarah", "Michael", "Emma", "David", "Olivia", "Daniel", "Sophia"];
+let prizesLive = [250, 500, 1000, 150, 75];
+
+function showLiveWin() {
+
+  let name = names[Math.floor(Math.random() * names.length)];
+  let prize = prizesLive[Math.floor(Math.random() * prizesLive.length)];
+
+  let notification = document.createElement("div");
+  notification.innerHTML = "🔥 " + name + " just won " + prize + " points!";
+  
+  notification.style.position = "fixed";
+  notification.style.bottom = "90px";
+  notification.style.left = "20px";
+  notification.style.background = "#111827";
+  notification.style.padding = "10px 15px";
+  notification.style.borderRadius = "8px";
+  notification.style.boxShadow = "0 0 10px gold";
+  notification.style.zIndex = "9999";
+  notification.style.fontSize = "14px";
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.remove();
+  }, 4000);
+}
+
+setInterval(showLiveWin, 15000);    
 
 </script>
 
