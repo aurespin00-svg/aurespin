@@ -710,6 +710,7 @@ updateProgress();
 
 // SPIN EVENT
 spinBtn.addEventListener("click", function() {
+  if (isSpinning) return;
 
   if (spins > 0 && !isSpinning) {
     isSpinning = true;
