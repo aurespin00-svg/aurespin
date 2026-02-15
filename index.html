@@ -612,6 +612,8 @@ body {
   
 <script>
 
+let jackpotActive = false;    
+
 let isSpinning = false;    
 
 if (localStorage.getItem("unlockClicks")) {
@@ -651,6 +653,7 @@ const result = document.getElementById("result");
 const popup = document.getElementById("unlockPopup");
 const wheel = document.getElementById("wheel");
 const progressBar = document.getElementById("progress");
+const spinSound = document.getElementById("spinSound");    
 
 // INITIAL DISPLAY
 pointsDisplay.textContent = points;
@@ -663,7 +666,7 @@ spinBtn.addEventListener("click", function() {
   if (spins > 0 && !isSpinning) {
     isSpinning = true;
 
-    document.getElementById("spinSound").play();
+    spinSound.play();  
 
     spins--;
 
@@ -690,11 +693,17 @@ let reward = prizes[segmentIndex];
       pointsDisplay.textContent = points;
       spinsDisplay.textContent = spins;
 
-      if (reward === 1000) {
-        result.innerHTML = "💎 JACKPOT! 1000 POINTS 💎";
-        triggerConfetti();
-        flashBigWin();
-      } 
+      if (reward === 1000 && !jackpotActive) {
+  jackpotActive = true;
+
+  result.innerHTML = "💎 JACKPOT! 1000 POINTS 💎";
+  triggerConfetti();
+  flashBigWin();
+
+  setTimeout(() => {
+    jackpotActive = false;
+  }, 3000);
+}
       else if (reward >= 500) {
         result.innerHTML = "🔥 BIG WIN! " + reward + " POINTS 🔥";
         flashBigWin();
@@ -789,9 +798,6 @@ function unlockSpins() {
     (parseInt(localStorage.getItem("unlockClicks")) || 0) + 1
   );
 
-  console.log("Unlock clicks:",
-    localStorage.getItem("unlockClicks")
-  );
 
   localStorage.setItem("spins", 5);
 
