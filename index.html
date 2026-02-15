@@ -636,14 +636,19 @@ ttq.page();
   
 <script>
 
-let spots = 37;
+// FAKE SCARCITY COUNTER
 
+let spots = 37;
+    
 setInterval(() => {
   if (spots > 12) {
     spots--;
-    document.getElementById("spotsLeft").textContent = spots;
+    let el = document.getElementById("spotsLeft");
+    if (el) {
+      el.textContent = spots;
+    }
   }
-}, 10000);    
+}, 10000);      
 
 let exitShown = false;   
 
@@ -944,18 +949,7 @@ function showLiveWin() {
 }
 
 setInterval(showLiveWin, 15000);   
-
-// FAKE SCARCITY COUNTER
-
-setInterval(() => {
-  if (spots > 12) {
-    spots--;
-    let el = document.getElementById("spotsLeft");
-    if (el) {
-      el.textContent = spots;
-    }
-  }
-}, 10000);    
+    
 
 </script>
 
