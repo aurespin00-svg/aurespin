@@ -766,16 +766,18 @@ function copyRef() {
 // CPA UNLOCK
 function unlockSpins() {
 
-  spins = 5;
-spinsDisplay.textContent = spins;
-popup.style.display = "none";  
-
   let email = document.getElementById("userEmail").value;
 
   if (!email || !email.includes("@")) {
     alert("Please enter a valid email to unlock bonus spins.");
     return;
   }
+
+   // Update spins AFTER validation
+  spins = 5;
+  spinsDisplay.textContent = spins;
+  localStorage.setItem("spins", 5);
+  popup.style.display = "none";  
 
   gtag('event', 'unlock_click', {
   event_category: 'engagement',
