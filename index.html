@@ -612,6 +612,8 @@ body {
   
 <script>
 
+let isSpinning = false;    
+
 if (localStorage.getItem("unlockClicks")) {
   document.getElementById("result").innerHTML += 
     "<br><span style='color:gold;'>Welcome back! Your bonus is waiting.</span>";
@@ -658,7 +660,8 @@ updateProgress();
 // SPIN EVENT
 spinBtn.addEventListener("click", function() {
 
-  if (spins > 0) {
+  if (spins > 0 && !isSpinning) {
+    isSpinning = true;
 
     document.getElementById("spinSound").play();
 
@@ -734,9 +737,13 @@ if (history.children.length > 5) {
   }
 });
 
+isSpinning = false;    
+
 function flashBigWin() {
+  result.style.animation = "none";
+  void result.offsetWidth;
   result.style.animation = "bigFlash 0.8s ease 3";
-}    
+}
 
 // REFERRAL SYSTEM
 let refCode = localStorage.getItem("refCode");
@@ -782,7 +789,9 @@ function unlockSpins() {
 
   localStorage.setItem("spins", 5);
 
-  window.location.href = "https://YOUR-CPA-OFFER-LINK.com";
+  setTimeout(() => {
+  window.open("https://YOUR-CPA-OFFER-LINK.com", "_blank");
+}, 500);
 }
 
 // PROGRESS BAR
