@@ -941,7 +941,20 @@ function showLiveWin() {
   }, 4000);
 }
 
-setInterval(showLiveWin, 15000);    
+setInterval(showLiveWin, 15000);   
+
+// FAKE SCARCITY COUNTER
+let spots = 37;
+
+setInterval(() => {
+  if (spots > 12) {
+    spots--;
+    let el = document.getElementById("spotsLeft");
+    if (el) {
+      el.textContent = spots;
+    }
+  }
+}, 10000);    
 
 </script>
 
