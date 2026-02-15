@@ -640,13 +640,12 @@ ttq.page();
 
 let spots = 37;
     
-setInterval(() => {
+let scarcityInterval = setInterval(() => {
   if (spots > 12) {
     spots--;
-    let el = document.getElementById("spotsLeft");
-    if (el) {
-      el.textContent = spots;
-    }
+    document.getElementById("spotsLeft").textContent = spots;
+  } else {
+    clearInterval(scarcityInterval);
   }
 }, 10000);       
 
