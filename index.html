@@ -678,7 +678,10 @@ let lastVisit = localStorage.getItem("lastVisit");
 
 if (lastVisit !== today) {
   spins = 3;
+  points = 0; // reset points daily
+
   localStorage.setItem("spins", spins);
+  localStorage.setItem("points", points);
   localStorage.setItem("lastVisit", today);
 }
 
