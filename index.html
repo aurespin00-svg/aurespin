@@ -636,6 +636,25 @@ ttq.page();
   
 <script>
 
+// Smart scarcity system
+let storedSpots = localStorage.getItem("spotsLeft");
+
+if (!storedSpots) {
+  storedSpots = Math.floor(Math.random() * 20) + 18; // 18–38
+  localStorage.setItem("spotsLeft", storedSpots);
+}
+
+let spotsLeft = parseInt(storedSpots);
+document.getElementById("spotsLeft").textContent = spotsLeft;
+
+setInterval(() => {
+  if (spotsLeft > 7) {
+    spotsLeft--;
+    document.getElementById("spotsLeft").textContent = spotsLeft;
+    localStorage.setItem("spotsLeft", spotsLeft);
+  }
+}, 20000);
+    
 // FAKE SCARCITY COUNTER
 
 let spots = 37;
