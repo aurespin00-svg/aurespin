@@ -759,7 +759,7 @@ document.getElementById("refLink").value =
 function copyRef() {
   let copyText = document.getElementById("refLink");
   copyText.select();
-  document.execCommand("copy");
+  navigator.clipboard.writeText(copyText.value);
   alert("Referral link copied!");
 }
 
