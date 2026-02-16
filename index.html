@@ -808,5 +808,111 @@ function triggerConfetti() {
   <div>👤 Profile</div>
 </div>     
 
+<script>
+// === POPUP & CPA UNLOCK SYSTEM ===
+
+const unlockPopup = document.getElementById("unlockPopup");
+const userEmailInput = document.getElementById("userEmail");
+
+// Show popup on exit intent (once per session)
+let exitShown = false;
+document.addEventListener("mouseleave", (e) => {
+    if (e.clientY < 0 && !exitShown) {
+        exitShown = true;
+        unlockPopup.style.display = "flex";
+    }
+});
+
+// Unlock bonus spins function
+function unlockSpins() {
+    const email = userEmailInput.value.trim();
+
+    if (!email || !email.includes("@")) {
+        alert("Please enter a valid email to unlock bonus spins.");
+        return;
+    }
+
+    // Give 5 spins
+    spins = 5;
+    spinsDisplay.textContent = spins;
+    localStorage.setItem("spins", spins);
+
+    // Track unlock clicks
+    localStorage.setItem(
+        "unlockClicks",
+        (parseInt(localStorage.getItem("unlockClicks")) || 0) + 1
+    );
+
+    // Google Analytics event
+    if (typeof gtag === "function") {
+        gtag('event', 'unlock_click', {
+            event_category: 'engagement',
+            event_label: 'CPA Unlock Button'
+        });
+    }
+
+    unlockPopup.style.display = "none";
+
+    // Redirect to CPA offer after short delay
+    setTimeout(() => {
+        window.open("https://YOUR-CPA-OFFER-LINK.com", "_blank");
+    }, 500);
+}
+
+// === COUNTDOWN TIMER ===
+let timeLeft = 300; // 5 minutes in seconds
+const countdownDisplay = document.getElementById("countdown");
+
+function updateCountdown() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    countdownDisplay.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
+updateCountdown(); // initial display
+
+let countdownInterval = setInterval(() => {
+    if (timeLeft > 0) {
+        timeLeft--;
+        updateCountdown();
+    } else {
+        // Reset or show bonus offer
+        timeLeft = 300; // reset 5 minutes
+        updateCountdown();
+        // Optionally, show popup when countdown ends
+        unlockPopup.style.display = "flex";
+    }
+}, 1000);
+
+// === SMART SCARCITY SYSTEM ===
+let storedSpots = localStorage.getItem("spotsLeft");
+if (!storedSpots) {
+    storedSpots = Math.floor(Math.random() * 20) + 18; // 18-38
+    localStorage.setItem("spotsLeft", storedSpots);
+}
+
+let spotsLeft = parseInt(storedSpots);
+document.getElementById("spotsLeft").textContent = spotsLeft;
+
+setInterval(() => {
+    if (spotsLeft > 7) {
+        spotsLeft--;
+        document.getElementById("spotsLeft").textContent = spotsLeft;
+        localStorage.setItem("spotsLeft", spotsLeft);
+    }
+}, 20000); // every 20 seconds
+
+// Fake countdown for visual effect
+let fakeSpots = 37;
+let fakeInterval = setInterval(() => {
+    if (fakeSpots > 12) {
+        fakeSpots--;
+        document.getElementById("spotsLeft").textContent = fakeSpots;
+    } else {
+        clearInterval(fakeInterval);
+    }
+}, 10000);
+</script>
+    
 </body>
 </html>
