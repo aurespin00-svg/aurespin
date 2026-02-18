@@ -21,6 +21,13 @@
 <link rel="manifest" href="manifest.json">
  
 </head>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+ 
 <body>
 
 <h1>Terms & Conditions</h1>
