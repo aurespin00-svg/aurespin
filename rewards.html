@@ -1,1 +1,17 @@
+<h2>🎁 Your Rewards</h2>
 
+<p>Total Points: <span id="points"></span></p>
+<p>Reward Goal: 2000 points</p>
+
+<ul>
+  <li>🎉 500 pts — Bonus Spins</li>
+  <li>💎 1000 pts — Premium Reward</li>
+  <li>🏆 2000 pts — VIP Status</li>
+</ul>
+
+<a href="play.html" class="spin-btn">Earn More Points</a>
+
+<script>
+document.getElementById("points").textContent =
+  localStorage.getItem("points") || 0;
+</script>
