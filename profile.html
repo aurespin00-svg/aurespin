@@ -1,1 +1,20 @@
+<h2>👤 Your Profile</h2>
 
+<p>Username: Guest Player</p>
+<p>Total Points: <span id="points"></span></p>
+<p>Spins Left Today: <span id="spins"></span></p>
+
+<button onclick="resetProgress()">Reset Progress</button>
+
+<script>
+document.getElementById("points").textContent =
+  localStorage.getItem("points") || 0;
+
+document.getElementById("spins").textContent =
+  localStorage.getItem("spins") || 0;
+
+function resetProgress() {
+  localStorage.clear();
+  location.reload();
+}
+</script>
