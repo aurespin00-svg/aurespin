@@ -36,7 +36,7 @@ if ("serviceWorker" in navigator) {
   <h2>Track Your Spins & Progress</h2>
 
 <p>Username: Guest Player</p>
-<p>Total Points: <span id="points"></span></p>
+<p>Points: <span id="points"></span></p>
 <p>Spins Left Today: <span id="spins"></span></p>
 
 <button onclick="resetProgress()">Reset Progress</button>
@@ -49,8 +49,9 @@ document.getElementById("spins").textContent =
   localStorage.getItem("spins") || 0;
 
 function resetProgress() {
-  localStorage.clear();
-  location.reload();
+  if (confirm("Reset all progress?")) {
+    localStorage.clear();
+    location.reload();
+  }
 }
 </script>
- 
