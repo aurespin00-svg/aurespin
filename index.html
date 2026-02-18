@@ -639,6 +639,16 @@ ttq.page();
 <audio id="spinSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>    
   
 <script>
+
+let lastSpin = localStorage.getItem("lastSpin") || 0;
+
+if (Date.now() - lastSpin < 3000) {
+  alert("Slow down ⏳");
+  return;
+}
+
+localStorage.setItem("lastSpin", Date.now());
+    
 /* =================== VARIABLES =================== */
 const spinBtn = document.getElementById("spinBtn");
 const wheel = document.getElementById("wheel");
