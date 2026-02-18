@@ -37,20 +37,31 @@ if ("serviceWorker" in navigator) {
 <h1>🎁 Your Rewards</h1>
 
 <h2>Unlock Bonuses with Your Points</h2>
-  
 
-<p>Total Points: <span id="points"></span></p>
-<p>Reward Goal: 2000 points</p>
-
-<ul>
-  <li>🎉 500 pts — Bonus Spins</li>
-  <li>💎 1000 pts — Premium Reward</li>
-  <li>🏆 2000 pts — VIP Status</li>
-</ul>
-
-<a href="play.html" class="spin-btn">Earn More Points</a>
+<ul id="rewardList"></ul>
 
 <script>
-document.getElementById("points").textContent =
-  localStorage.getItem("points") || 0;
+const points = parseInt(localStorage.getItem("points") || 0);
+
+const rewards = [
+  { pts: 500, label: "🎉 Bonus Spins" },
+  { pts: 1000, label: "💎 Premium Reward" },
+  { pts: 2000, label: "🏆 VIP Status" }
+];
+
+const list = document.getElementById("rewardList");
+
+rewards.forEach(r => {
+  const li = document.createElement("li");
+
+  if (points >= r.pts) {
+    li.innerHTML = `${r.label} — ✅ Unlocked`;
+    li.style.color = "gold";
+  } else {
+    li.innerHTML = `${r.label} — 🔒 Locked (${r.pts} pts)`;
+    li.style.opacity = "0.6";
+  }
+
+  list.appendChild(li);
+});
 </script>
