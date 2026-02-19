@@ -674,3 +674,15 @@ let fakeInterval = setInterval(() => {
 }, 10000);
 </script>
 
+<script>
+function unlockSpins() {
+  const email = document.getElementById("userEmail").value;
+  if (!email.includes("@")) {
+    alert("Enter a valid email");
+    return;
+  }
+  alert("Bonus spins unlocked!");
+  document.getElementById("unlockPopup").style.display = "none";
+}
+</script>
+
