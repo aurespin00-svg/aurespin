@@ -1,125 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>AureSpin – Free Daily Spins & Virtual Rewards Game</title>
 <meta name="description" content="AureSpin lets you spin daily, earn virtual points, and unlock rewards. Free-to-play entertainment game.">
-    
+
+<!-- Open Graph -->
+<meta property="og:title" content="AureSpin – Free Daily Spins">
+<meta property="og:description" content="Spin daily, earn virtual rewards, and play for fun.">
+<meta property="og:type" content="website">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+<link rel="manifest" href="manifest.json">
+
 <style>
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    text-align: center;
-}
-header {
-    padding: 60px 20px;
-}
-h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-}
-p {
-    font-size: 1.2em;
-    opacity: 0.9;
-}
-.button {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 15px 35px;
-    font-size: 1.1em;
-    color: white;
-    background: gold;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-}
-.section {
-    padding: 60px 20px;
-}
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 25px;
-    margin: 20px auto;
-    max-width: 350px;
-    border-radius: 15px;
-}
-
-footer {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: white;
   text-align: center;
-  padding: 20px;
+  padding-bottom: 90px;
 }
 
-footer a {
-  color: white;
-  text-decoration: none;
+header { padding: 60px 20px; }
+h1 { font-size: 3em; margin-bottom: 10px; }
+p { font-size: 1.1em; opacity: 0.9; }
+
+.section { padding: 60px 20px; }
+
+.card {
+  background: rgba(255,255,255,0.1);
+  padding: 25px;
+  margin: 20px auto;
+  max-width: 350px;
+  border-radius: 15px;
 }
 
-footer a:hover {
-  color: #ccc;
-}
-
+.hero-trust { font-size: 14px; opacity: 0.9; }
 
 .main-footer {
   background: #111827;
-  color: #ffffff;
-  text-align: center;
   padding: 40px 20px;
-}
-
-.main-footer h2,
-.main-footer h3 {
-  margin-bottom: 15px;
-  font-weight: 500;
-}
-
-.main-footer hr {
-  border: none;
-  height: 1px;
-  background: rgba(255,255,255,0.1);
-  margin: 30px 0;
 }
 
 .social-icons a {
   color: white;
   margin: 0 12px;
   font-size: 22px;
-  transition: 0.3s ease;
+  transition: 0.3s;
 }
 
 .social-icons a:hover {
-  color: #00f7ff;
   transform: scale(1.2);
-  text-shadow: 0 0 10px #00f7ff;
-}
-
-.telegram-section a {
-  display: inline-block;
-  margin: 10px 15px;
-  padding: 8px 16px;
-  background: #0088cc;
-  color: white;
-  border-radius: 25px;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
-
-.telegram-section a:hover {
-  background: #00aaff;
+  color: #00f7ff;
 }
 
 .footer-links a {
-  display: inline-block;
   margin: 8px 15px;
   color: white;
   text-decoration: none;
   opacity: 0.8;
-  transition: 0.3s;
 }
 
 .footer-links a:hover {
@@ -127,87 +70,13 @@ footer a:hover {
   color: #00f7ff;
 }
 
-.age-warning {
-  margin-top: 20px;
-}
-
 .badge {
-  display: inline-block;
   border: 2px solid red;
   color: red;
   padding: 6px 14px;
   border-radius: 50px;
   font-weight: bold;
-  margin-bottom: 10px;
 }
-
-.age-warning p {
-  font-size: 14px;
-  opacity: 0.7;
-}
-
-.copyright {
-  margin-top: 30px;
-  font-size: 14px;
-  opacity: 0.6;
-}
-    
-footer {
-    padding: 30px;
-    font-size: 0.9em;
-    color: #ffffff;
-    opacity: 1;
-}
-footer a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-footer a:hover {
-    color: #00f7ff;
-}
-
-/* Social Icons Style */
-.social-icons a {
-    color: white;
-    font-size: 22px;
-    margin: 0 15px;
-    transition: 0.3s ease;
-}
-
-/* Brand colors on hover */
-.social-icons a:hover .fa-facebook-f { color: #1877f2; }
-.social-icons a:hover .fa-x-twitter { color: #000000; }
-.social-icons a:hover .fa-instagram { color: #e4405f; }
-.social-icons a:hover .fa-youtube { color: #ff0000; }
-.social-icons a:hover .fa-tiktok { color: #ffffff; }
-
-.social-icons a:hover {
-    transform: scale(1.3);
-}
-
-.hero-trust {
-  margin-top: 15px;
-  text-align: center;
-  color: #e6e9ff;
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-.hero-trust p {
-  margin: 5px 0;
-}
-
-.footer-description {
-  max-width: 700px;
-  margin: 20px auto;
-  text-align: center;
-  color: #cfd8ff;
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.9;
-}      
-
 
 .bottom-nav {
   position: fixed;
@@ -217,68 +86,62 @@ footer a:hover {
   display: flex;
   justify-content: space-around;
   padding: 12px 0;
-  font-size: 14px;
   border-top: 1px solid rgba(255,255,255,0.1);
-}    
-
-body {
-  padding-bottom: 80px;
 }
 
-
-
-  .card {
-    max-width: 90%;
-  }
-}    
-    
+.bottom-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
 </style>
 
-<!-- Google tag (gtag.js) -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C05TN2ZX2P"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-C05TN2ZX2P');
+</script>
 
-  gtag('config', 'G-C05TN2ZX2P');
-</script>  
+<!-- TikTok Pixel DISABLED (safe) -->
+<!-- Enable only after adding real pixel ID -->
 
-<!-- AdSense intentionally disabled on gameplay pages -->
-
-<link rel="manifest" href="manifest.json">
-    
 </head>
 <body>
 
 <header>
-    <h1>🎰 AureSpin</h1>
-    <h2>Spin Daily • Earn Virtual Rewards • Play for Fun</h2>
-    
-    
+  <h1>🎰 AureSpin</h1>
+  <h2>Spin Daily • Earn Virtual Rewards • Play for Fun</h2>
 
-    <!-- Trust Line -->
-<div class="hero-trust">
-  <p>⭐ 10,000+ Players Worldwide</p>
-  <p>🎁 Free Daily Spins Available</p>
-</div>
-    
+  <p style="font-size:13px;opacity:0.7;">
+    Free-to-play entertainment platform. No gambling. No real-money winnings.
+  </p>
+
+  <div class="hero-trust">
+    <p>⭐ 10,000+ Players Worldwide</p>
+    <p>🎁 Free Daily Spins Available</p>
+  </div>
 </header>
 
 <div class="section">
-    <h2>Why Choose AureSpin?</h2>
-    <div class="card">
-        <h3>⚡ Fast Rewards</h3>
-        <p>Instant spins. Instant excitement.</p>
-    </div>
-    <div class="card">
-        <h3>🔒 Secure Platform</h3>
-        <p>Your safety is our priority.</p>
-    </div>
-    <div class="card">
-        <h3>🌍 Global Access</h3>
-        <p>Play from anywhere in the world.</p>
-    </div>
+  <h2>Why Choose AureSpin?</h2>
+
+  <div class="card">
+    <h3>⚡ Fast Rewards</h3>
+    <p>Instant spins. Instant excitement.</p>
+  </div>
+
+  <div class="card">
+    <h3>🔒 Secure Platform</h3>
+    <p>Your safety is our priority.</p>
+  </div>
+
+  <div class="card">
+    <h3>🌍 Global Access</h3>
+    <p>Play from anywhere in the world.</p>
+  </div>
 </div>
 
 <div class="section">
@@ -286,106 +149,65 @@ body {
 
   <div class="card">
     <h3>🎰 How does AureSpin work?</h3>
-    <p>Players spin the wheel to earn virtual points and unlock bonus opportunities.</p>
+    <p>Spin the wheel to earn virtual points and unlock bonuses.</p>
   </div>
 
   <div class="card">
-    <h3>🎁 Are the rewards real money?</h3>
-    <p>No. Points are virtual and used for entertainment and promotional bonuses.</p>
+    <h3>🎁 Are rewards real money?</h3>
+    <p>No. All points are virtual and have no cash value.</p>
   </div>
 
   <div class="card">
-    <h3>🌍 Is AureSpin available worldwide?</h3>
-    <p>Yes, AureSpin is accessible globally where promotional offers are available.</p>
+    <h3>🌍 Is it available worldwide?</h3>
+    <p>Yes, where promotional platforms are permitted.</p>
   </div>
 </div>
-    
+
+<!-- SAFE POPUP -->
+<div id="unlockPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;">
+  <div style="background:#111827;padding:30px;border-radius:15px;max-width:300px;">
+    <h3>🎁 Unlock Bonus Spins</h3>
+    <input id="userEmail" type="email" placeholder="Email"
+      style="width:100%;padding:10px;margin:10px 0;">
+    <button onclick="unlockSpins()" style="padding:10px 20px;">Unlock</button>
+  </div>
+</div>
+
 <footer class="main-footer">
-
-<p style="font-size:13px; opacity:0.6;">
-This is a free-to-play entertainment platform. No gambling or real-money winnings.
-</p>    
-
-    <!-- Footer Description -->
-<div class="footer-description">
   <p>
-    AureSpin is a global entertainment platform offering interactive spin rewards and digital bonuses.
+    AureSpin is a promotional entertainment platform.  
+    Points have no cash value and are for gameplay only.
   </p>
-    
-</div>   
-
-<div class="footer-description">
-    
-    <p style="font-size:13px; opacity:0.7; margin-top:15px;">
-  AureSpin is a promotional entertainment platform. 
-  Points earned have no direct cash value and are used for gameplay purposes only. 
-  Bonus spins may require completion of optional partner offers.
-</p>
-</div>
-
-   <hr> 
-
-  <h2>Join Our Community</h2>
 
   <div class="social-icons">
     <a href="https://www.facebook.com/share/1bD61JQn1e/?mibextid=wwXIfr"><i class="fab fa-facebook-f"></i></a>
     <a href="https://x.com/aurespin73854?s=21"><i class="fab fa-x-twitter"></i></a>
-    <a href="https://www.instagram.com/aurespin00?igsh=YmsxOGc2ZHFodGdl&utm_source=qr"><i class="fab fa-instagram"></i></a>
-    <a href="https://youtube.com/@aurespin-l8n?si=ofE5YWnIen0LYP2n"><i class="fab fa-youtube"></i></a>
-    <a href="https://www.tiktok.com/@aurespin?_r=1&_t=ZS-93tv3Z8ngR7"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.instagram.com/aurespin00"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com/@aurespin-l8n"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.tiktok.com/@aurespin"><i class="fab fa-tiktok"></i></a>
   </div>
-
-  <hr>
-
-  <h3>Social Media Groups & Channels</h3>
-
-  <div class="telegram-section">
-    <a href="#"><i class="fab fa-telegram"></i> Telegram Group</a>
-    <a href="#"><i class="fab fa-telegram"></i> Telegram Channel</a>
-  </div>
-
-  <hr>
-
-  <h3>CO-OPERATIVE</h3>
-    
-  <hr>  
-
-  <h3>Support / About Us</h3>
 
   <div class="footer-links">
-    <a href="about.html">About Us</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
     <a href="contact.html">Contact</a>
   </div>
 
- <hr>
-
-    <p style="margin-top:15px; opacity:0.8;">
-  📧 Support: aurespin00@gmail.com
-</p>
-    
-  <hr>
-
   <div class="age-warning">
     <span class="badge">18+</span>
-    <p>This platform is intended for users 18 years and above. Play responsibly.</p>
+    <p>For users 18 and above only.</p>
   </div>
 
-  <p class="copyright">
-    © 2026 AureSpin. All Rights Reserved.
-  </p>
+  <p style="opacity:0.6;">© 2026 AureSpin</p>
+</footer>
 
-</footer>      
-
-
-    
 <div class="bottom-nav">
   <a href="index.html">🏠 Home</a>
   <a href="play.html">🎰 Play</a>
   <a href="rewards.html">🎁 Rewards</a>
   <a href="profile.html">👤 Profile</a>
-</div>    
+</div>
 
 
 <script>
@@ -394,7 +216,5 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 
-
-    
 </body>
 </html>
