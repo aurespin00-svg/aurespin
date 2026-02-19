@@ -1,67 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>AureSpin</title>
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C05TN2ZX2P"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-C05TN2ZX2P');
-  </script>
-
-<title>AureSpin Rewards – Unlock Bonuses with Points</title>
-<meta name="description" content="View your AureSpin rewards and see what bonuses you can unlock using your virtual points.">
-  
-<link rel="manifest" href="manifest.json">
-  
+<title>AureSpin – Rewards</title>
+<style>
+body { background:#020617;color:white;text-align:center;font-family:Arial; }
+.card { background:#111827;padding:20px;margin:20px;border-radius:15px; }
+button { padding:10px 20px;border-radius:20px;background:#00f7ff;border:none; }
+</style>
 </head>
+
 <body>
 
+<h1>🎁 Rewards</h1>
+<p>Your Points: <span id="points">0</span></p>
+
+<div class="card">
+  <h3>🎉 Bonus Spin</h3>
+  <p>Cost: 100 points</p>
+  <button onclick="redeem(100)">Redeem</button>
+</div>
+
 <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
+let points = Number(localStorage.getItem("points")) || 0;
+document.getElementById("points").textContent = points;
+
+function redeem(cost) {
+  if (points < cost) {
+    alert("Not enough points");
+    return;
+  }
+  points -= cost;
+  let spins = Number(localStorage.getItem("spins")) || 0;
+  spins++;
+
+  localStorage.setItem("points", points);
+  localStorage.setItem("spins", spins);
+
+  alert("🎰 Bonus spin added!");
+  location.reload();
 }
 </script>
 
-<script src="layout.js"></script>  
-
-<h1>🎁 Your Rewards</h1>
-
-<h2>Unlock Bonuses with Your Points</h2>
-
-<ul id="rewardList"></ul>
-
-<script>
-const points = parseInt(localStorage.getItem("points") || 0);
-
-const rewards = [
-  { pts: 500, label: "🎉 Bonus Spins" },
-  { pts: 1000, label: "💎 Premium Reward" },
-  { pts: 2000, label: "🏆 VIP Status" }
-];
-
-const list = document.getElementById("rewardList");
-
-rewards.forEach(r => {
-  const li = document.createElement("li");
-
-  if (points >= r.pts) {
-    li.innerHTML = `${r.label} — ✅ Unlocked`;
-    li.style.color = "gold";
-  } else {
-    li.innerHTML = `${r.label} — 🔒 Locked (${r.pts} pts)`;
-    li.style.opacity = "0.6";
-  }
-
-  list.appendChild(li);
-});
-</script>
+</body>
+</html>
