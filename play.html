@@ -183,3 +183,74 @@ body {
 }    
  
 </style>
+
+
+<section class="game-section">
+
+  <div class="stats">
+    <p>🪙 Points: <span id="points">0</span></p>
+    <p>🎟 Spins Left: <span id="spins">3</span></p>
+  </div>
+
+  <div class="wheel-container">
+  <div class="pointer"></div>    
+  <div id="wheel" class="wheel"></div>
+
+  <div class="wheel-labels">
+  <span style="--i:0">50</span>
+  <span style="--i:1">100</span>
+  <span style="--i:2">250</span>
+  <span style="--i:3">500</span>
+  <span style="--i:4">75</span>
+  <span style="--i:5">150</span>
+  <span style="--i:6">💎1000</span>
+</div>    
+      
+</div>
+
+<p>⏳ Bonus Ends In: <span id="countdown">05:00</span></p>    
+
+<p style="color: gold; font-weight: bold;">
+⚡ Only <span id="spotsLeft">37</span> bonus spots remaining today!
+</p>        
+
+<button id="spinBtn" class="spin-btn">🎰Spin & Earn Rewards</button>
+
+  <p id="result"></p>
+
+<p>🎯 Reward Goal: <span id="goal">2000</span> Points</p>
+<div class="progress-bar">
+  <div id="progress"></div>
+</div>     
+
+<h3>🏆 Top Players</h3>
+<ul class="leaderboard">
+  <li>Player123 — 4,500 pts</li>
+  <li>SpinMaster — 3,920 pts</li>
+  <li>LuckyStar — 3,100 pts</li>
+</ul>   
+
+<h3>🧾 Recent Wins</h3>
+<ul id="winHistory"></ul>        
+
+<h3>👥 Invite & Earn</h3>
+<p>Share AureSpin with friends and earn bonus spins!</p>
+<input type="text" id="refLink" readonly>
+<button onclick="copyRef()">Copy Link</button>        
+
+</section>
+
+<!-- Unlock Popup -->
+<div id="unlockPopup" class="popup">
+  <div class="popup-content">
+    <h3>🎯 You’re 1 Step Away!</h3>
+    <p>Complete 1 quick task to unlock 5 FREE spins and boost your rewards.</p>
+
+    <input type="email"
+           id="userEmail"
+           placeholder="Enter email for bonus spins"
+           style="padding:10px; width:80%; margin:10px 0; border-radius:8px; border:none;">
+
+    <button onclick="unlockSpins()">Unlock Spins</button>
+  </div>
+</div>
