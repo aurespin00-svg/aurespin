@@ -258,26 +258,6 @@ body {
   gtag('config', 'G-C05TN2ZX2P');
 </script>  
 
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;
-  var ttq=w[t]=w[t]||[];
-  ttq.methods=["page","track","identify"];
-  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}; 
-  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
-  ttq.load=function(e){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-  ttq._i=ttq._i||{};ttq._i[e]=[];ttq._o=ttq._o||{};
-  ttq._o[e]={};ttq._t=ttq._t||{};ttq._t[e]=+new Date;
-  var n=d.createElement("script");
-  n.type="text/javascript";n.async=!0;n.src=i+"?sdkid="+e+"&lib="+t;
-  var s=d.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(n,s)};
-}(window, document, 'ttq');
-
-ttq.load('YOUR_PIXEL_ID');
-ttq.page();
-</script>
-
 <!-- AdSense intentionally disabled on gameplay pages -->
 
 <link rel="manifest" href="manifest.json">
