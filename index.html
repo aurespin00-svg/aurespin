@@ -78,22 +78,77 @@ p { font-size: 1.1em; opacity: 0.9; }
   font-weight: bold;
 }
 
-.bottom-nav {
+/* TOP BAR */
+.top-nav {
   position: fixed;
-  bottom: 0;
+  top: 0;
   width: 100%;
+  height: 56px;
   background: #111827;
+  color: white;
   display: flex;
-  justify-content: space-around;
-  padding: 12px 0;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  align-items: center;
+  padding: 0 15px;
+  z-index: 1000;
 }
 
-.bottom-nav a {
+.menu-icon {
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.app-title {
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* SIDE MENU */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #020617;
+  padding: 20px;
+  transition: 0.3s ease;
+  z-index: 1100;
+}
+
+.side-menu a {
+  display: block;
   color: white;
   text-decoration: none;
-  font-size: 14px;
+  padding: 12px 0;
+  font-size: 16px;
 }
+
+.side-menu a:hover {
+  color: #00f7ff;
+}
+
+.close-btn {
+  font-size: 28px;
+  cursor: pointer;
+  display: block;
+  text-align: right;
+}
+
+/* OVERLAY */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  z-index: 1050;
+}
+
+/* PUSH CONTENT DOWN */
+body {
+  padding-top: 60px;
+}
+  
 </style>
 
 <!-- Google Analytics -->
@@ -110,6 +165,31 @@ gtag('config', 'G-C05TN2ZX2P');
 
 </head>
 <body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <span class="menu-icon" onclick="openMenu()">☰</span>
+  <span class="app-title">AureSpin</span>
+</div>
+
+<!-- SIDE MENU -->
+<div id="sideMenu" class="side-menu">
+  <span class="close-btn" onclick="closeMenu()">×</span>
+
+  <a href="index.html">🏠 Home</a>
+  <a href="play.html">🎰 Play</a>
+  <a href="rewards.html">🎁 Rewards</a>
+  <a href="profile.html">👤 Profile</a>
+
+  <hr>
+
+  <a href="about.html">ℹ️ About</a>
+  <a href="privacy.html">🔒 Privacy</a>
+  <a href="terms.html">📄 Terms</a>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="closeMenu()"></div>  
 
 <header>
   <h1>🎰 AureSpin</h1>
@@ -202,18 +282,23 @@ gtag('config', 'G-C05TN2ZX2P');
   <p style="opacity:0.6;">© 2026 AureSpin</p>
 </footer>
 
-<div class="bottom-nav">
-  <a href="index.html">🏠 Home</a>
-  <a href="play.html">🎰 Play</a>
-  <a href="rewards.html">🎁 Rewards</a>
-  <a href="profile.html">👤 Profile</a>
-</div>
-
-
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
+
+<script>
+function openMenu() {
+  document.getElementById("sideMenu").style.left = "0";
+  document.getElementById("overlay").style.display = "block";
+}
+
+function closeMenu() {
+  document.getElementById("sideMenu").style.left = "-260px";
+  document.getElementById("overlay").style.display = "none";
+}
+</script>
+  
 </script>
 
 </body>
