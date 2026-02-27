@@ -1,733 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AureSpin - Play. Win. Repeat.</title>
+<title>AureSpin - Play</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    text-align: center;
-}
-header {
-    padding: 60px 20px;
-}
-h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-}
-p {
-    font-size: 1.2em;
-    opacity: 0.9;
-}
-.button {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 15px 35px;
-    font-size: 1.1em;
-    color: white;
-    background: gold;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-}
-.section {
-    padding: 60px 20px;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0b1120;
+  color:white;
+  padding-bottom:80px;
 }
 
-.hero-trust {
-  margin-top: 15px;
-  text-align: center;
-  color: #e6e9ff;
-  font-size: 14px;
-  opacity: 0.9;
+/* TOP BAR */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  background:#111827;
 }
 
-.hero-trust p {
-  margin: 5px 0;
+.balance{
+  background:#1f2937;
+  padding:8px 14px;
+  border-radius:20px;
+  font-weight:bold;
+  box-shadow:0 0 10px #00f7ff;
 }
 
-.game-section {
-  text-align: center;
-  padding: 60px 20px;
+.bonus-btn{
+  background:gold;
+  color:black;
+  padding:8px 14px;
+  border-radius:20px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.stats p {
-  font-size: 18px;
-  margin: 10px 0;
+/* BANNERS */
+.top-banners{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:15px;
 }
 
-#result {
-  margin-top: 20px;
-  font-size: 20px;
-  font-weight: bold;
+.banner{
+  min-width:220px;
+  background:linear-gradient(45deg,#ff9800,gold);
+  padding:20px;
+  border-radius:15px;
+  font-weight:bold;
+  color:black;
 }
 
-.popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
+/* ANNOUNCEMENT */
+.announcement{
+  background:#1e293b;
+  padding:10px;
+  text-align:center;
+  font-size:14px;
 }
 
-.popup-content {
-  background: #111827;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  color: white;
-}    
-
-body {
-  background: radial-gradient(circle at center, #111827, #000);
-  color: white;
-  font-family: Arial, sans-serif;
+/* CATEGORIES */
+.categories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:15px;
 }
 
-.wheel-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin: 40px 0;
+.categories button{
+  background:#1e293b;
+  border:none;
+  padding:8px 16px;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
 }
 
-.wheel {
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  border: 10px solid gold;
-  position: relative;
-  background: conic-gradient(
-    #ff4d4d 0deg 51deg,
-    #4dff4d 51deg 102deg,
-    #4d4dff 102deg 153deg,
-    #ffff4d 153deg 204deg,
-    #ff4dff 204deg 255deg,
-    #4dffff 255deg 306deg,
-    gold 306deg 360deg
-  );
-  box-shadow: 0 0 25px gold, 0 0 50px orange;
-  transition: transform 3s cubic-bezier(.17,.67,.83,.67);
-  animation: glowPulse 2s infinite;
+.categories .active{
+  background:#7c3aed;
 }
 
-.pointer {
-  position: absolute;
-  top: -15px;
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 25px solid gold;
-  z-index: 10;
+/* SECTION TITLE */
+.section-title{
+  padding:0 15px;
+  display:flex;
+  justify-content:space-between;
 }
 
-.spin-btn {
-  padding: 15px 50px;
-  font-size: 20px;
-  font-weight: bold;
-  background: linear-gradient(45deg, gold, orange);
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  margin-top: 20px;
-  box-shadow: 0 0 15px gold;
-  transition: 0.3s ease;
+/* GAME GRID */
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  padding:15px;
 }
 
-.spin-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px orange;
+.game-card{
+  background:#111827;
+  border-radius:15px;
+  overflow:hidden;
+  text-align:center;
+  transition:0.3s;
+  position:relative;
 }
 
-.progress-bar {
-  width: 80%;
-  height: 20px;
-  background: #333;
-  margin: 15px auto;
-  border-radius: 20px;
-  overflow: hidden;
+.game-card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #00f7ff;
 }
 
-#progress {
-  height: 100%;
-  width: 0%;
-  background: gold;
-  transition: width 0.5s ease;
+.game-thumb{
+  height:120px;
+  background:linear-gradient(45deg,#00f7ff,#7c3aed);
 }
 
-.leaderboard {
-  list-style: none;
-  padding: 0;
-  margin-top: 15px;
+.game-card p{
+  padding:10px;
+  font-weight:bold;
 }
 
-.leaderboard li {
-  margin: 5px 0;
-  font-size: 14px;
+.badge{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:red;
+  padding:4px 8px;
+  border-radius:12px;
+  font-size:12px;
 }
 
-@keyframes glowPulse {
-  0% { box-shadow: 0 0 20px gold; }
-  50% { box-shadow: 0 0 40px orange; }
-  100% { box-shadow: 0 0 20px gold; }
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#111827;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+  font-size:12px;
 }
 
-.wheel {
-  animation: glowPulse 2s infinite;
+.bottom-nav a{
+  text-align:center;
+  color:white;
+  text-decoration:none;
 }
 
-@keyframes bigFlash {
-  0% { transform: scale(1); color: white; }
-  50% { transform: scale(1.3); color: gold; }
-  100% { transform: scale(1); color: white; }
-}    
-
-.wheel-labels {
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
+.bottom-nav a.active{
+  color:gold;
 }
 
-.wheel-labels span {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: rotate(calc(51.4286deg * var(--i))) translate(0, -110px) rotate(calc(-51.4286deg * var(--i)));
-  transform-origin: center;
-  font-size: 14px;
-  font-weight: bold;
-  color: black;
-}    
-
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #111827;
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 0;
-  font-size: 14px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}    
-
-body {
-  padding-bottom: 80px;
-}
-
-@media (max-width: 480px) {
-  .wheel {
-    width: 220px;
-    height: 220px;
-  }
-
-  .wheel-labels {
-    width: 220px;
-    height: 220px;
-  }
-
-  .spin-btn {
-    width: 90%;
-    font-size: 18px;
-  } 
-    
 </style>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C05TN2ZX2P"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-C05TN2ZX2P');
-</script>  
-
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;
-  var ttq=w[t]=w[t]||[];
-  ttq.methods=["page","track","identify"];
-  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}; 
-  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
-  ttq.load=function(e){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-  ttq._i=ttq._i||{};ttq._i[e]=[];ttq._o=ttq._o||{};
-  ttq._o[e]={};ttq._t=ttq._t||{};ttq._t[e]=+new Date;
-  var n=d.createElement("script");
-  n.type="text/javascript";n.async=!0;n.src=i+"?sdkid="+e+"&lib="+t;
-  var s=d.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(n,s)};
-}(window, document, 'ttq');
-
-ttq.load('YOUR_PIXEL_ID');
-ttq.page();
-</script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5066130573940310"
-     crossorigin="anonymous"></script>
-    
 </head>
 <body>
 
-<header>
-    <h1>🎰 AureSpin</h1>
-    <p>Play. Win. Repeat.</p>
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="balance">🪙 <span id="balance">0</span> pts</div>
+  <div class="bonus-btn" onclick="claimBonus()">🎁 Bonus</div>
+</div>
 
-  <p style="font-size:13px;opacity:0.7;">
-    Free-to-play entertainment platform. No gambling. No real-money winnings.
-  </p>
+<!-- BANNERS -->
+<div class="top-banners">
+  <div class="banner">🔥 Daily Spin Event</div>
+  <div class="banner">💎 Jackpot Challenge</div>
+  <div class="banner">🎁 Free Bonus Spins</div>
+</div>
 
-    
-    <section class="game-section">
+<!-- ANNOUNCEMENT -->
+<div class="announcement">
+📢 Play games to earn points and unlock rewards!
+</div>
 
-  <div class="stats">
-    <p>🪙 Points: <span id="points">0</span></p>
-    <p>🎟 Spins Left: <span id="spins">3</span></p>
+<!-- CATEGORIES -->
+<div class="categories">
+  <button class="active">All</button>
+  <button>Spin</button>
+  <button>Popular</button>
+  <button>New</button>
+</div>
+
+<h3 class="section-title">🎰 Spin Games <span>4</span></h3>
+
+<!-- GAME GRID -->
+<div class="game-grid">
+
+  <div class="game-card" onclick="openGame('wheel')">
+    <div class="badge">HOT</div>
+    <div class="game-thumb"></div>
+    <p>Super Spin</p>
   </div>
 
-  <div class="wheel-container">
-  <div class="pointer"></div>    
-  <div id="wheel" class="wheel"></div>
-
-  <div class="wheel-labels">
-  <span style="--i:0">50</span>
-  <span style="--i:1">100</span>
-  <span style="--i:2">250</span>
-  <span style="--i:3">500</span>
-  <span style="--i:4">75</span>
-  <span style="--i:5">150</span>
-  <span style="--i:6">💎1000</span>
-</div>    
-      
-</div>
-
-<p>⏳ Bonus Ends In: <span id="countdown">05:00</span></p>    
-
-<p style="color: gold; font-weight: bold;">
-⚡ Only <span id="spotsLeft">37</span> bonus spots remaining today!
-</p>        
-
-<button id="spinBtn" class="spin-btn">🎰Spin & Earn Rewards</button>
-
-  <p id="result"></p>
-
-<p>🎯 Reward Goal: <span id="goal">2000</span> Points</p>
-<div class="progress-bar">
-  <div id="progress"></div>
-</div>     
-
-<h3>🏆 Top Players</h3>
-<ul class="leaderboard">
-  <li>Player123 — 4,500 pts</li>
-  <li>SpinMaster — 3,920 pts</li>
-  <li>LuckyStar — 3,100 pts</li>
-</ul>   
-
-<h3>🧾 Recent Wins</h3>
-<ul id="winHistory"></ul>        
-
-<h3>👥 Invite & Earn</h3>
-<p>Share AureSpin with friends and earn bonus spins!</p>
-<input type="text" id="refLink" readonly>
-<button onclick="copyRef()">Copy Link</button>        
-
-</section>
-
-<!-- Unlock Popup -->
-<div id="unlockPopup" class="popup">
-  <div class="popup-content">
-    <h3>🎯 You’re 1 Step Away!</h3>
-    <p>Complete 1 quick task to unlock 5 FREE spins and boost your rewards.</p>
-
-    <input type="email"
-           id="userEmail"
-           placeholder="Enter email for bonus spins"
-           style="padding:10px; width:80%; margin:10px 0; border-radius:8px; border:none;">
-
-    <button onclick="unlockSpins()">Unlock Spins</button>
+  <div class="game-card" onclick="openGame('wheel')">
+    <div class="game-thumb"></div>
+    <p>Free Spin</p>
   </div>
+
+  <div class="game-card" onclick="openGame('wheel')">
+    <div class="badge">NEW</div>
+    <div class="game-thumb"></div>
+    <p>Jackpot Spin</p>
+  </div>
+
+  <div class="game-card" onclick="openGame('wheel')">
+    <div class="game-thumb"></div>
+    <p>Cash Rush</p>
+  </div>
+
 </div>
 
-    <!-- Trust Line -->
-<div class="hero-trust">
-  <p>⭐ 10,000+ Players Worldwide</p>
-  <p>🎁 Free Daily Spins Available</p>
-</div>
-    
-</header>
-
-<audio id="spinSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>    
-  
-<script>
-
-// Smart scarcity system
-let storedSpots = localStorage.getItem("spotsLeft");
-
-if (!storedSpots) {
-  storedSpots = Math.floor(Math.random() * 20) + 18; // 18–38
-  localStorage.setItem("spotsLeft", storedSpots);
-}
-
-let spotsLeft = parseInt(storedSpots);
-document.getElementById("spotsLeft").textContent = spotsLeft;
-
-setInterval(() => {
-  if (spotsLeft > 7) {
-    spotsLeft--;
-    document.getElementById("spotsLeft").textContent = spotsLeft;
-    localStorage.setItem("spotsLeft", spotsLeft);
-  }
-}, 20000);
-    
-// FAKE SCARCITY COUNTER
-
-let spots = 37;
-    
-let scarcityInterval = setInterval(() => {
-  if (spots > 12) {
-    spots--;
-    document.getElementById("spotsLeft").textContent = spots;
-  } else {
-    clearInterval(scarcityInterval);
-  }
-}, 10000);       
-
-let jackpotActive = false;    
-
-let isSpinning = false;    
-
-if (localStorage.getItem("unlockClicks")) {
-  document.getElementById("result").innerHTML += 
-    "<br><span style='color:gold;'>Welcome back! Your bonus is waiting.</span>";
-}    
-
-let urlParams = new URLSearchParams(window.location.search);
-let source = urlParams.get("src");
-
-if (source) {
-  localStorage.setItem("trafficSource", source);
-}
-
-console.log("Traffic Source:", localStorage.getItem("trafficSource"));    
-
-let points = localStorage.getItem("points") ? parseInt(localStorage.getItem("points")) : 0;
-let spins = localStorage.getItem("spins") ? parseInt(localStorage.getItem("spins")) : 3;
-let goal = 2000;
-let rotation = 0;
-
-// DAILY RESET
-let today = new Date().toLocaleDateString();
-let lastVisit = localStorage.getItem("lastVisit");
-
-if (lastVisit !== today) {
-  spins = 3;
-  points = 0; // reset points daily
-
-  localStorage.setItem("spins", spins);
-  localStorage.setItem("points", points);
-  localStorage.setItem("lastVisit", today);
-}
-
-// ELEMENTS
-const spinBtn = document.getElementById("spinBtn");
-const pointsDisplay = document.getElementById("points");
-const spinsDisplay = document.getElementById("spins");
-const result = document.getElementById("result");
-const popup = document.getElementById("unlockPopup");
-const wheel = document.getElementById("wheel");
-const progressBar = document.getElementById("progress");
-const spinSound = document.getElementById("spinSound");  
-
-// EXIT INTENT POPUP
-let exitShown = false;
-
-document.addEventListener("mouseleave", function(e) {
-  if (e.clientY < 0 && !exitShown) {
-    exitShown = true;
-    popup.style.display = "flex";
-  }
-});    
-
-// INITIAL DISPLAY
-pointsDisplay.textContent = points;
-spinsDisplay.textContent = spins;
-updateProgress();
-
-// SPIN EVENT
-spinBtn.addEventListener("click", function() {
-  if (isSpinning) return;
-
-  if (spins > 0) {  
-    isSpinning = true;
-
-    spinSound.currentTime = 0;  
-    spinSound.play();  
-
-    spins--;
-
-    let spinDegrees = 1440 + Math.floor(Math.random() * 360);
-    rotation += spinDegrees;
-    wheel.style.transform = "rotate(" + rotation + "deg)";
-
-let prizes = [50, 100, 250, 500, 75, 150, 1000];
-
-// Calculate reward based on where wheel stops
-let segmentAngle = 360 / 7;
-let adjustedAngle = (360 - (rotation % 360)) % 360;
-let segmentIndex = Math.floor(adjustedAngle / segmentAngle);
-
-let reward = prizes[segmentIndex];
-
-    setTimeout(() => {
-
-      let start = points;
-let end = points + reward;
-let duration = 800;
-let startTime = null;
-
-function animatePoints(timestamp) {
-  if (!startTime) startTime = timestamp;
-  let progress = timestamp - startTime;
-  let current = Math.min(Math.floor(progress / duration * reward), reward);
-  pointsDisplay.textContent = start + current;
-
-  if (progress < duration) {
-    requestAnimationFrame(animatePoints);
-  } else {
-    points = end;
-    localStorage.setItem("points", points);
-  }
-}
-
-requestAnimationFrame(animatePoints);
-
-      localStorage.setItem("spins", spins);
-
-      spinsDisplay.textContent = spins;
-
-      if (reward === 1000 && !jackpotActive) {
-  jackpotActive = true;
-
-  result.innerHTML = "💎 JACKPOT! 1000 POINTS 💎";
-  triggerConfetti();
-  flashBigWin();
-
-  setTimeout(() => {
-    jackpotActive = false;
-  }, 3000);
-}
-      else if (reward >= 500) {
-        result.innerHTML = "🔥 BIG WIN! " + reward + " POINTS 🔥";
-        flashBigWin();
-      } 
-      else {
-        result.innerHTML = "🎉 You won " + reward + " points!";
-      }
-        // Traffic-based bonus message
-let sourceStored = localStorage.getItem("trafficSource");
-
-if (sourceStored === "tiktok") {
-  result.innerHTML += "<br><span style='color:gold;'>🔥 TikTok Bonus Active!</span>";
-}
-
-if (sourceStored === "telegram") {
-  result.innerHTML += "<br><span style='color:gold;'>🎁 Telegram VIP Spins!</span>";
-}
-        
-        // Soft tease when 1 spin left
-  if (spins === 1) {
-    result.innerHTML += "<br><span style='color:gold;'>⚡ Almost out of spins! Bonus available.</span>";
-  }
-
-      let history = document.getElementById("winHistory");
-let item = document.createElement("li");
-item.textContent = "Won " + reward + " pts";
-history.prepend(item);
-
-if (history.children.length > 5) {
-  history.removeChild(history.lastChild);
-}  
-
-      updateProgress();
-
-      if (spins === 0) {
-        popup.style.display = "flex";
-      }
-
-isSpinning = false;
-        
-    }, 3000);
-  }else {
-  popup.style.display = "flex";
-}
-});
-
-function flashBigWin() {
-  result.style.animation = "none";
-  void result.offsetWidth;
-  result.style.animation = "bigFlash 0.8s ease 3";
-}
-
-// REFERRAL SYSTEM
-let refCode = localStorage.getItem("refCode");
-
-if (!refCode) {
-  refCode = Math.random().toString(36).substring(2, 8);
-  localStorage.setItem("refCode", refCode);
-}
-
-document.getElementById("refLink").value =
-  window.location.origin + "?ref=" + refCode;
-
-function copyRef() {
-  let copyText = document.getElementById("refLink");
-  copyText.select();
-  navigator.clipboard.writeText(copyText.value);
-  alert("Referral link copied!");
-}
-
-// CPA UNLOCK
-function unlockSpins() {
-
-  let email = document.getElementById("userEmail").value;
-
-  if (!email || !email.includes("@")) {
-    alert("Please enter a valid email to unlock bonus spins.");
-    return;
-  }
-
-   // Update spins AFTER validation
-  spins = 5;
-  spinsDisplay.textContent = spins;
-  localStorage.setItem("spins", 5);
-  popup.style.display = "none";  
-
-  gtag('event', 'unlock_click', {
-  event_category: 'engagement',
-  event_label: 'CPA Unlock Button'
-});  
-
-  // Track unlock clicks
-  localStorage.setItem("unlockClicks",
-    (parseInt(localStorage.getItem("unlockClicks")) || 0) + 1
-  );
-
-  console.log("Unlock clicks:",
-    localStorage.getItem("unlockClicks")
-  );  
-
-  setTimeout(() => {
-  window.open("https://YOUR-CPA-OFFER-LINK.com", "_blank");
-}, 500);
-}
-
-// PROGRESS BAR
-function updateProgress() {
-  let progressPercent = (points / goal) * 100;
-  if (progressPercent > 100) progressPercent = 100;
-  progressBar.style.width = progressPercent + "%";
-}
-
-function triggerConfetti() {
-  for (let i = 0; i < 80; i++) {
-    let confetti = document.createElement("div");
-    confetti.style.position = "fixed";
-    confetti.style.width = "6px";
-    confetti.style.height = "6px";
-    confetti.style.backgroundColor = "gold";
-    confetti.style.top = "0";
-    confetti.style.left = Math.random() * window.innerWidth + "px";
-    confetti.style.opacity = "1";
-    confetti.style.zIndex = "9999";
-    document.body.appendChild(confetti);
-
-    let fall = setInterval(() => {
-      confetti.style.top = parseInt(confetti.style.top) + 5 + "px";
-      confetti.style.opacity -= 0.02;
-
-      if (parseFloat(confetti.style.opacity) <= 0) {
-        clearInterval(fall);
-        confetti.remove();
-      }
-    }, 20);
-  }
-}    
-
-let timeLeft = 300; // 5 minutes
-
-setInterval(() => {
-  if (timeLeft > 0) {
-    timeLeft--;
-    let minutes = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
-    document.getElementById("countdown").textContent =
-      minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  }
-}, 1000);    
-
-// Fake live winner notifications
-let names = ["James", "Sarah", "Michael", "Emma", "David", "Olivia", "Daniel", "Sophia"];
-let prizesLive = [250, 500, 1000, 150, 75];
-
-function showLiveWin() {
-
-  let name = names[Math.floor(Math.random() * names.length)];
-  let prize = prizesLive[Math.floor(Math.random() * prizesLive.length)];
-
-  let notification = document.createElement("div");
-  notification.innerHTML = "🔥 " + name + " just won " + prize + " points!";
-  
-  notification.style.position = "fixed";
-  notification.style.bottom = "90px";
-  notification.style.left = "20px";
-  notification.style.background = "#111827";
-  notification.style.padding = "10px 15px";
-  notification.style.borderRadius = "8px";
-  notification.style.boxShadow = "0 0 10px gold";
-  notification.style.zIndex = "9999";
-  notification.style.fontSize = "14px";
-
-  document.body.appendChild(notification);
-
-  setTimeout(() => {
-    notification.remove();
-  }, 4000);
-}
-
-setInterval(showLiveWin, 15000);   
-    
-
-</script>
-
+<!-- BOTTOM NAV -->
 <div class="bottom-nav">
-  <div>🏠 Home</div>
-  <div>🎰 Play</div>
-  <div>🎁 Rewards</div>
-  <div>👤 Profile</div>
-</div>     
+  <a href="index.html">🏠<br>Home</a>
+  <a href="play.html" class="active">🎰<br>Play</a>
+  <a href="#">🎁<br>Rewards</a>
+  <a href="#">👤<br>Profile</a>
+</div>
 
 <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-} 
-</script>
 
+// Load balance
+let balance = localStorage.getItem("points") || 0;
+document.getElementById("balance").textContent = balance;
+
+// Open Game
+function openGame(game){
+  window.location.href = "wheel.html"; 
+}
+
+// Bonus system
+function claimBonus(){
+  balance = parseInt(balance) + 100;
+  localStorage.setItem("points", balance);
+  document.getElementById("balance").textContent = balance;
+  alert("🎁 100 Bonus Points Added!");
+}
+
+</script>
 
 </body>
 </html>
