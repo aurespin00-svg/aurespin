@@ -388,7 +388,6 @@ ttq.page();
 
 <header class="hero">
   <div class="hero-content">
-
 <!-- Language Switcher -->
   <div style="position:absolute; top:20px; right:20px;">
     <select id="languageSwitcher">
@@ -555,29 +554,11 @@ ttq.page();
   <a href="play.html">🎰 Play</a>
   <a href="rewards.html">🎁 Rewards</a>
   <a href="profile.html">👤 Profile</a>
-  <button id="openLang">🌍</button>
-
 </div>
 
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
-}
-  
-</script>
-
-<div class="login-box">
-  <input type="email" id="email" placeholder="Enter email">
-  <button onclick="saveUser()">Login</button>
-</div>
-
-<script>
-function saveUser() {
-  const email = document.getElementById("email").value;
-  if(email){
-    localStorage.setItem("aureUser", email);
-    alert("Welcome " + email);
-  }
 }
 </script>
 
@@ -652,6 +633,21 @@ if (openLangBtn) {
   openLangBtn.onclick = function() {
     document.getElementById("languageSwitcher").focus();
   };
+}
+</script>
+
+<div class="login-box">
+  <input type="email" id="email" placeholder="Enter email">
+  <button onclick="saveUser()">Login</button>
+</div>
+
+<script>
+function saveUser() {
+  const email = document.getElementById("email").value;
+  if(email){
+    localStorage.setItem("aureUser", email);
+    alert("Welcome " + email);
+  }
 }
 </script>
 
