@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Scratch Card - AureSpin</title>
+
+<style>
+
+body{
+background:#020617;
+color:white;
+text-align:center;
+font-family:Arial;
+}
+
+.card{
+width:200px;
+height:200px;
+background:silver;
+margin:40px auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🪙 Scratch Card</h1>
+
+<div class="card" onclick="scratch()">SCRATCH</div>
+
+<p id="result"></p>
+
+<script>
+
+function scratch(){
+
+let rewards=[50,100,200,500];
+
+let win=rewards[Math.floor(Math.random()*rewards.length)];
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+points+=win;
+
+localStorage.setItem("points",points);
+
+document.getElementById("result").innerHTML=
+"🎉 You won "+win+" points!";
+
+}
+
+</script>
+
+</body>
+</html>
