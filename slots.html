@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Slots - AureSpin</title>
+
+<style>
+
+body{
+background:#020617;
+color:white;
+text-align:center;
+font-family:Arial;
+}
+
+.slot{
+font-size:50px;
+margin:20px;
+}
+
+button{
+padding:10px 20px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎰 Lucky Slots</h1>
+
+<div class="slot" id="slot1">🍒</div>
+<div class="slot" id="slot2">🍋</div>
+<div class="slot" id="slot3">🍉</div>
+
+<button onclick="spin()">Spin</button>
+
+<p id="result"></p>
+
+<script>
+
+let icons=["🍒","🍋","🍉","💎","⭐"];
+
+function spin(){
+
+let s1=icons[Math.floor(Math.random()*icons.length)];
+let s2=icons[Math.floor(Math.random()*icons.length)];
+let s3=icons[Math.floor(Math.random()*icons.length)];
+
+document.getElementById("slot1").innerText=s1;
+document.getElementById("slot2").innerText=s2;
+document.getElementById("slot3").innerText=s3;
+
+if(s1===s2 && s2===s3){
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+points+=500;
+
+localStorage.setItem("points",points);
+
+document.getElementById("result").innerHTML="💎 JACKPOT! 500 points";
+
+}else{
+
+document.getElementById("result").innerHTML="Try again";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
