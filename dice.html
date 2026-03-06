@@ -1,0 +1,34 @@
+<h1>🎲 Dice Roll</h1>
+
+<button onclick="roll()">Roll Dice</button>
+
+<p id="dice"></p>
+<p id="result"></p>
+
+<script>
+
+function roll(){
+
+let number=Math.floor(Math.random()*6)+1;
+
+document.getElementById("dice").innerHTML="Dice: "+number;
+
+if(number==6){
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+points+=300;
+
+localStorage.setItem("points",points);
+
+document.getElementById("result").innerHTML="🎉 You won 300 points!";
+
+}else{
+
+document.getElementById("result").innerHTML="No reward";
+
+}
+
+}
+
+</script>
