@@ -1,0 +1,34 @@
+<h1>🪙 Coin Flip</h1>
+
+<button onclick="flip()">Flip Coin</button>
+
+<p id="coin"></p>
+<p id="result"></p>
+
+<script>
+
+function flip(){
+
+let result=Math.random()<0.5?"Heads":"Tails";
+
+document.getElementById("coin").innerHTML=result;
+
+if(result==="Heads"){
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+points+=150;
+
+localStorage.setItem("points",points);
+
+document.getElementById("result").innerHTML="🎉 You won 150 points";
+
+}else{
+
+document.getElementById("result").innerHTML="Try again";
+
+}
+
+}
+
+</script>
