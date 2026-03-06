@@ -347,43 +347,89 @@ header {
   cursor: pointer;
 }
 
-/* Hamburger Button */
-.menu-btn {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-size: 28px;
-  cursor: pointer;
-  z-index: 10001;
-  background: #111827;
-  padding: 8px 12px;
-  border-radius: 8px;
+/* MENU BUTTON */
+.menu-btn{
+position:fixed;
+top:15px;
+left:15px;
+font-size:26px;
+background:#111827;
+color:white;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+z-index:10002;
+box-shadow:0 0 10px rgba(0,0,0,0.4);
 }
 
-/* Side Menu */
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 260px;
-  height: 100%;
-  background: #111827;
-  padding-top: 60px;
-  transition: 0.3s;
-  z-index: 10000;
+/* OVERLAY */
+#menuOverlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+z-index:10000;
 }
 
-.side-menu a {
-  display: block;
-  padding: 15px 25px;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+/* SIDE MENU */
+.side-menu{
+position:fixed;
+top:0;
+left:-270px;
+width:270px;
+height:100%;
+background:linear-gradient(180deg,#111827,#020617);
+color:white;
+padding-top:20px;
+transition:0.35s;
+z-index:10001;
+overflow-y:auto;
 }
 
-.side-menu a:hover {
-  background: #1f2937;
+/* MENU HEADER */
+.menu-header{
+text-align:center;
+padding:20px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.profile-icon{
+font-size:40px;
+margin-bottom:8px;
+}
+
+.menu-header h3{
+margin:5px 0;
+}
+
+.menu-header p{
+font-size:14px;
+color:#ffd700;
+}
+
+/* LINKS */
+.side-menu a{
+display:block;
+padding:15px 25px;
+text-decoration:none;
+color:white;
+font-size:16px;
+transition:0.25s;
+}
+
+.side-menu a:hover{
+background:#1f2937;
+padding-left:30px;
+}
+
+/* SEPARATORS */
+.side-menu hr{
+border:none;
+border-top:1px solid rgba(255,255,255,0.1);
+margin:10px 0;
 }
     
 </style>
@@ -687,33 +733,60 @@ function saveUser() {
     alert("Welcome " + email);
   }
 }
-</script>
+</script> 
 
-<!-- Hamburger Menu Button -->
-<div class="menu-btn" onclick="toggleMenu()">
-  ☰
-</div>
+<!-- MENU BUTTON -->
+<div class="menu-btn" onclick="openMenu()">☰</div>
 
-<!-- Side Navigation -->
+<!-- OVERLAY -->
+<div id="menuOverlay" onclick="closeMenu()"></div>
+
+<!-- SIDE MENU -->
 <div id="sideMenu" class="side-menu">
+
+  <div class="menu-header">
+    <div class="profile-icon">👤</div>
+    <h3>Player</h3>
+    <p>Points: <span id="menuPoints">0</span></p>
+  </div>
+
   <a href="#">🏠 Home</a>
   <a href="#">🎰 Play</a>
   <a href="#">🎁 Rewards</a>
-  <a href="#">👤 Profile</a>
+  <a href="#">🏆 Leaderboard</a>
+  <a href="#">👥 Invite Friends</a>
+
+  <hr>
+
   <a href="about.html">ℹ️ About</a>
   <a href="contact.html">📩 Contact</a>
+  <a href="privacy.html">🔒 Privacy</a>
+
+  <hr>
+
+  <a href="https://t.me/">📢 Telegram</a>
+  <a href="https://tiktok.com/@aurespin">🎵 TikTok</a>
+
 </div>
 
 <script>
-function toggleMenu() {
-  const menu = document.getElementById("sideMenu");
 
-  if (menu.style.left === "0px") {
-    menu.style.left = "-260px";
-  } else {
-    menu.style.left = "0px";
-  }
+function openMenu(){
+document.getElementById("sideMenu").style.left="0";
+document.getElementById("menuOverlay").style.display="block";
 }
+
+function closeMenu(){
+document.getElementById("sideMenu").style.left="-270px";
+document.getElementById("menuOverlay").style.display="none";
+}
+
+/* Sync menu points with game points */
+setInterval(()=>{
+let p = localStorage.getItem("points") || 0;
+document.getElementById("menuPoints").innerText = p;
+},500);
+
 </script>
 
 </body>
