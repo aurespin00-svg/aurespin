@@ -347,6 +347,44 @@ header {
   cursor: pointer;
 }
 
+/* Hamburger Button */
+.menu-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 10001;
+  background: #111827;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* Side Menu */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #111827;
+  padding-top: 60px;
+  transition: 0.3s;
+  z-index: 10000;
+}
+
+.side-menu a {
+  display: block;
+  padding: 15px 25px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.side-menu a:hover {
+  background: #1f2937;
+}
     
 </style>
 
@@ -647,6 +685,33 @@ function saveUser() {
   if(email){
     localStorage.setItem("aureUser", email);
     alert("Welcome " + email);
+  }
+}
+</script>
+
+<!-- Hamburger Menu Button -->
+<div class="menu-btn" onclick="toggleMenu()">
+  ☰
+</div>
+
+<!-- Side Navigation -->
+<div id="sideMenu" class="side-menu">
+  <a href="#">🏠 Home</a>
+  <a href="#">🎰 Play</a>
+  <a href="#">🎁 Rewards</a>
+  <a href="#">👤 Profile</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="contact.html">📩 Contact</a>
+</div>
+
+<script>
+function toggleMenu() {
+  const menu = document.getElementById("sideMenu");
+
+  if (menu.style.left === "0px") {
+    menu.style.left = "-260px";
+  } else {
+    menu.style.left = "0px";
   }
 }
 </script>
