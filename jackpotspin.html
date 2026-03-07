@@ -1,0 +1,33 @@
+<h1>💎 Jackpot Spin</h1>
+
+<button onclick="jackpot()">Spin</button>
+
+<p id="result"></p>
+
+<script>
+
+function jackpot(){
+
+let chance=Math.random();
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+if(chance<0.1){
+
+points+=2000;
+
+document.getElementById("result").innerHTML=
+"💎 JACKPOT! 2000 points";
+
+}else{
+
+document.getElementById("result").innerHTML=
+"No jackpot. Try again.";
+
+}
+
+localStorage.setItem("points",points);
+
+}
+
+</script>
