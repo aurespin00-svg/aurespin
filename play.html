@@ -243,6 +243,24 @@ function claimBonus(){
   alert("🎁 100 Bonus Points Added!");
 }
 
+let today=new Date().toLocaleDateString();
+
+let last=localStorage.getItem("daily");
+
+if(last!==today){
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+points+=100;
+
+localStorage.setItem("points",points);
+
+localStorage.setItem("daily",today);
+
+alert("🎁 Daily reward: 100 points");
+
+}
+
 </script>
 
 </body>
