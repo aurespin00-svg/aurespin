@@ -1,0 +1,26 @@
+<h1>🆓 Free Spin</h1>
+
+<button onclick="freeSpin()">Spin</button>
+
+<p id="result"></p>
+
+<script>
+
+function freeSpin(){
+
+let rewards=[50,100,150];
+
+let win=rewards[Math.floor(Math.random()*rewards.length)];
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+points+=win;
+
+localStorage.setItem("points",points);
+
+document.getElementById("result").innerHTML=
+"You won "+win+" points";
+
+}
+
+</script>
