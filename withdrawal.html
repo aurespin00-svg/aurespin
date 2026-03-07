@@ -1,0 +1,29 @@
+<h1>💰 Withdraw</h1>
+
+<p>Minimum withdrawal: 2000 points</p>
+
+<input placeholder="Enter PayPal Email">
+
+<button onclick="withdraw()">Withdraw</button>
+
+<p id="msg"></p>
+
+<script>
+
+function withdraw(){
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+if(points<2000){
+
+document.getElementById("msg").innerHTML="❌ Not enough points";
+
+}else{
+
+document.getElementById("msg").innerHTML="✅ Request submitted";
+
+}
+
+}
+
+</script>
