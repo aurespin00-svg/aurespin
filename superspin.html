@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Super Spin</title>
+
+<style>
+
+body{
+background:#020617;
+color:white;
+text-align:center;
+font-family:Arial;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+background:gold;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎰 Super Spin</h1>
+
+<button onclick="spin()">Spin</button>
+
+<p id="result"></p>
+
+<script>
+
+function spin(){
+
+let rewards=[100,200,300,500];
+
+let win=rewards[Math.floor(Math.random()*rewards.length)];
+
+let points=parseInt(localStorage.getItem("points")||0);
+
+points+=win;
+
+localStorage.setItem("points",points);
+
+document.getElementById("result").innerHTML=
+"🎉 You won "+win+" points!";
+
+}
+
+</script>
+
+</body>
+</html>
